@@ -174,15 +174,6 @@ The performance of the model was assessed by calculating the coefficient of dete
 
 
 
-
-
-
-
-
-
-
-
-
 \subsubsection*{Code availability}
 
 \section{Results}
@@ -192,17 +183,23 @@ The performance of the model was assessed by calculating the coefficient of dete
 \begin{figure}
 \begin{subfigure}{1\textwidth}
   \centering
-  \includegraphics[width=.8\linewidth]{PCA_3PCs_age_sex_regressed_hcpaging_hcpya_raw.pdf}
-  \caption{First three PCs of unharmonized HCP data after regressing out age and sex.}
+  \includegraphics[width=1\linewidth]{figures/boxplots_1.png}
+  \caption{Analysis 1}
   \label{fig:sfig1}
 \end{subfigure}
 \begin{subfigure}{1\textwidth}
   \centering
-  \includegraphics[width=.8\linewidth]{PCA_3PCs_age_sex_regressed_hcpaging_hcpya_ComBat.pdf}
-  \caption{First three PCs of ComBat-harmonized HCP data after regressing out age and sex.}
-  \label{fig:sfig2}
+  \includegraphics[width=1\linewidth]{figures/boxplots_2.png}
+  \caption{Analysis 2}
+  \label{fig:sfig1}
 \end{subfigure}
-\caption{Results of dimensionality reduction of cortical thickness data in healthy controls (HCP Aging, HCP Young Adults) using principal components analysis before and after harmonization with ComBat}
+\begin{subfigure}{1\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/boxplots_3.png}
+  \caption{Analysis 3}
+  \label{fig:sfig1}
+\end{subfigure}
+\caption{Results from models.}
 \label{fig:fig}
 \end{figure}
 
