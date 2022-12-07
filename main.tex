@@ -44,7 +44,7 @@ footskip=.25in]{geometry}
 \end{center}
 
 \begin{center}
-Emily Olafson$^1*$, Keith Jamison$^1$, Amy Kuceyeski$^1$
+Emily Olafson$^1$, Keith Jamison$^1$, Amy Kuceyeski$^1$
 \end{center}
 
     1. \textmd{Department of Radiology, Weill Cornell Medical College, New York City, New York, USA, 10021} 
@@ -57,41 +57,36 @@ Ischemic stroke is a major cause of physical impairment, and up to a third of st
 \section{Introduction}
 Ischemic stroke is a leading cause of physical impairment worldwide. Up to one-third of stroke survivors have poor motor outcomes five years after stroke, but the ability to predict long-term deficits from acute clinical information is still a major challenge.
 
-The location of the stroke in the brain explains some of the variance in long-term outcomes, and prediction models of stroke outcome are improved by incorporating information about lesion location. Lesion segmentations, once requiring  delineation by experts, can now be performed with automated methods requiring minimal manual editing (\cite{Pustina2016-qu}). However, it is currently unclear how to optimally use volumetric lesion data to predict chronic motor outcomes (\cite{Sperber2020-kp, Kasties2021-rm}). 
+The location of the stroke in the brain explains some of the variance in long-term outcomes, and prediction models of stroke outcome are improved by incorporating information about lesion location. Lesion segmentations, once requiring  delineation by experts, can now be performed with automated methods requiring minimal manual editing (\cite{Pustina2016-qu}). However, it is currently unclear how to optimally use  lesion data to predict chronic motor outcomes (\cite{Sperber2020-kp, Kasties2021-rm}). 
 
-Several lesion biomarkers have been related to stroke motor outcome. The most widely-employed lesion biomarker of motor outcome is the corticospinal tract (CST) lesion load, or the proportion of voxels in the ipsilesional corticospinal tract (typically fibers from primary motor cortex) that intersect with the lesion (\cite{Zhu2010-qh, Feng2015-du}). This biomarker has been related to motor deficits in the acute phase of stroke, but it is unclear whether this biomarker can accurately predict chronic impairments across a wide range of lesion topographies (for review, see \cite{Kim2017-xe}). Models that incorporate information about how the lesion damages additional sensorimotor regions, i.e. regions beyond the primary motor cortex that are still related to motor and sensory function, explain more variance in post-stroke outcome compared to models that incorporate information about primary motor cortex CST damage alone (\cite{Ito2022-em, Sperber2021-lw, Rondina2016-ds, Rondina2017-ij, Schulz2012-yy}). These more complex models tend to incorporate damage to premotor, supplementary motor, pre-supplementary motor, and somatosensory cortices (\cite{Ito2022-em,Schulz2012-yy, Sperber2021-lw, Rondina2016-ds, Rondina2017-ij}). 
+Several biomarkers of stroke motor outcomes have been derived from lesion data. The most widely-employed of such biomarkers is corticospinal tract (CST) lesion load, or the proportion of voxels in the ipsilesional corticospinal tract (typically fibers from primary motor cortex) that intersect with the lesion (\cite{Zhu2010-qh, Feng2015-du}). This biomarker has been related to motor deficits in the acute phase of stroke, but it is unclear whether this biomarker can accurately predict chronic impairments across a wide range of lesion topographies (for review, see \cite{Kim2017-xe}). Models that incorporate information about how the lesion damages secondary sensorimotor regions, i.e. regions beyond the primary motor cortex that are still related to motor function, explain more variance in post-stroke outcome than models that incorporate information about primary motor cortex CST damage alone (\cite{Ito2022-em, Sperber2021-lw, Rondina2016-ds, Rondina2017-ij, Schulz2012-yy}). These more complex models tend to incorporate damage to premotor, supplementary motor, pre-supplementary motor, and somatosensory cortices (\cite{Ito2022-em,Schulz2012-yy, Sperber2021-lw, Rondina2016-ds, Rondina2017-ij}). 
 
-These biomarkers have typically been associated with motor scores within a sample. Variables that significantly relate to outcomes and variables that are predictively relevant can agree or diverge (\cite{Bzdok2020-py}). The practical performance of a predictive model must be evaluated by its performance on external data; i.e., by standard cross-validation (\cite{Hastie2001-or}). Although lesion load has been consistently related to motor outcomes, few studies have assessed the performance of models with cross-validation (for review, see \cite{Kim2017-xe}).
+These biomarkers have historically been associated with motor scores within one sample or imaging site, but few papers assess their ability to generalize to new datasets. Variables that are significantly associated with outcomes, that are derived from an inference framework, may not be optimal for predictive models (\cite{Bzdok2020-py}). The practical performance of a predictive model must be evaluated by its performance on unseen data; i.e., by standard cross-validation (\cite{Hastie2001-or}). Although lesion load has been consistently related to motor outcomes, few studies have assessed the performance of models with cross-validation (for review, see \cite{Kim2017-xe}).
 
-Indeed, the optimal set of features extracted from lesion data may not be directly related to hemiparesis per se (\cite{Bzdok2020-py, Sperber2021-lw}). Because of the hierarchical, non-random distribution of lesion topography (\cite{Mah2014-cb,Wang2019-dz}), damage to voxels outside of the motor system may meaningfully predict chronic motor impairment (\cite{Sperber2021-lw}). Machine learning models that incorporate features in a data-driven way may be able to discover lesion-deficit associations beyond the current suite of theory-driven biomarkers like those in the motor system (\cite{Kasties2021-rm, Calesella2021-kp}). We generate a measure of structural disconnection for all cortical and subcortical areas of the brain using the Network Modification tool, and use data-driven feature selection to identify regions that are relevant for the prediction of motor outcomes. 
-
+Indeed, the optimal set of features extracted from lesion data may not be directly related to hemiparesis per se (\cite{Bzdok2020-py, Sperber2021-lw}). Because of the hierarchical and non-random distribution of lesion topography (\cite{Mah2014-cb,Wang2019-dz}), damage to voxels outside of the motor system may meaningfully predict chronic motor impairment (\cite{Sperber2021-lw}). Machine learning models that incorporate features in a data-driven way may be able to discover lesion-deficit associations beyond the current suite of theory-driven biomarkers like those in the motor system (\cite{Kasties2021-rm, Calesella2021-kp}). We generate a measure of structural disconnection across all gray matter regions in the brain using the Network Modification tool (\cite{Kuceyeski2013-nk}) and use data-driven feature selection to identify regions that are relevant for the prediction of motor outcomes. 
 
 In this paper, we robustly compare the predictive accuracy of several imaging biomarkers of post-stroke motor impairment by assessing their out-of-sample performance using the ENIGMA dataset, a multi-site stroke lesion database (\cite{Liew2020-ps}). We compare theory-driven features (i.e. motor-related CST lesion load) with data-driven imaging features. 
 
 
 
 \section{Methods}
+Code to replicate all analyses is available on GitHub. 
 
-
-
-\subsection{Model specification}
-All code to calculate lesion load is available on GitHub. 
-
-\subsubsection{Lesion load of primary motor cortex}
-The M1-corticospinal tract segmentation was obtained from the sensorimotor area tract template (SMATT) (\cite{Archer2018-ti}). M1-CST lesion load was calculated as the proportion of lesioned voxels intersecting with the ipsilesional M1-CST (\cite{Zhu2010-qh}).
+\subsection{Derivation of lesion biomarkers}
+\subsubsection{Lesion load of the ipsilesional primary motor cortex corticospinal tract}
+The lesion load of the corticospinal tract originating from the primary motor cortex( M1-CST-LL) is a single value that has been associated with motor impairment in several stroke studies. The M1-CST-LL was calculated as the number of lesioned voxels intersecting with the ipsilesional M1-CST (\cite{Zhu2010-qh}). Left and right hemisphere M1-CST segmentations were obtained from the sensorimotor area tract template (SMATT) (\cite{Archer2018-ti}). 
 
 \subsubsection{Lesion load of all corticospinal tract bundles}
-
-Previously, \cite{Ito2022-em} have shown that models that use the corticospinal tract lesion load fibers originating the ventral premotor cortex in addition to lesion load of the primary motor cortex have the strongest associations with motor scores.
-
-Corticospinal tract segmentations were obtained from the sensorimotor area tract template (SMATT), a set of 6 tracts derived from probabilistic tractography seeded in primary motor cortex (M1), dorsal and ventral premotor cortex (PMd and PMv, respectively), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), and primary somatosensory cortex (S1) (Figure \ref{fig1}) (\cite{Archer2018-ti}). Lesion load for each tract was calculated as:
+Previously, \cite{Ito2022-em} have shown that models that use lesion load measured for corticospinal tract fibers originating the ventral premotor cortex improve predictions.
+Corticospinal tract segmentations were obtained from the sensorimotor area tract template (SMATT), a set of 12 tracts derived from probabilistic tractography seeded in the left and right primary motor cortex (M1), dorsal and ventral premotor cortex (PMd and PMv, respectively), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), and primary somatosensory cortex (S1) (Figure \ref{fig1}) (\cite{Archer2018-ti}). 
+Lesion load for each tract was calculated as:
 \begin{equation}
-    \textit{Lesion load} = \frac{\textit{Number of lesioned voxels that intersect with the tract}}{\textit{Sum of voxels in tract}}
+    \textit{Lesion load} = \frac{\textit{Number of lesioned voxels intersecting with  tract}}{\textit{Sum of voxels in tract}}
 \end{equation}
 
-Motor scores were predicted using ridge regression models with ipsilesional lesion load (6 values) and bihemispheric lesion load (12 values, preserving left/right) as inputs. Lesion load values were normalized (subtracting the mean and dividing by the l2-norm) prior to model fitting. CST from all bundles were positively correlated with one another and negatively correlated with motor scores (Figure \ref{smatt_pairwise_correlations})
+Lesion load for all 12 tracts (i.e. across both hemispheres) and for 6 ipsilesional tracts were used in prediction models. Lesion load values were normalized (subtracting the mean and dividing by the l2-norm) prior to model fitting. Lesion loads from all bundles were positively correlated with one another and negatively correlated with motor scores (Figure \ref{smatt_pairwise_correlations}).
 
-\subsubsection{Data-driven feature selection}
+\subsubsection{Regional structural disconnection}
 %\subsubsection*{Deriving ChaCo scores (change in connectivity) from lesion masks}
 
 \begin{figure}[htp]
@@ -112,13 +107,22 @@ We extracted two outputs from the NeMo tool that reflect the impact of the lesio
 
 We employed ridge regression to account for multicollinearity of selected features. Ridge regression models were trained and evaluated using a 5-fold nested cross-validation loop. In the outer loop, the data was split into training and test partitions. Training data was further partitioned into training and validation in the inner loop. In the inner loop, two hyperparameters were optimized: the amount of regularization on regression coefficients ($\lambda$) and the number of features to include ($\kappa$) after a feature selection step. 
 Because inference and prediction are different goals and the feature maps derived from both types of studies can vary widely (\cite{Sperber2021-lw, Bzdok2020-py}), we included a correlation-based feature selection step. 
-The correlation between all features and the outcome was calculated and the features were ranked by absolute value correlation. The top $\kappa$ features were then included in the model, where $\kappa$ is chosen via nested cross-validation. Importantly, this feature selection was performed after data was split into training and test sets, such that no hold-out test data is used in the selection of the set of feature weights (\cite{Hastie2001-or}). 
- 
+The correlation between all features (i.e. regional ChaCo scores) and motor scores was calculated and the features were ranked by absolute value correlation. The top $\kappa$ features were then included in the model, where $\kappa$ is chosen via nested cross-validation. Importantly, this feature selection was performed after data was split into training and test sets, such that no hold-out test data was used in the selection of the set of feature weights (\cite{Hastie2001-or}). 
  
 The $\kappa$ values searched for FS86 spanned 30 values from 5 to 86, in log base-2 steps; the $\kappa$ values searched for shen268 spanned 30 values from 5 to 268, in log base-2 steps. The regularization coefficient $\lambda$ was chosen via grid search between $\lambda = 10^{-2}$ and $10^2$ in base-10 logarithmic steps for FS86, and between $\lambda = 10^{-2}$ and $10^3$ in base-10 logarithmic steps for Shen-268. 
 
 \subsubsection{Ensemble models}
-We evaluated whether performance would be improved by averaging predictions from the lesion load models and from the data-driven feature selection ChaCo models. These ensemble models were generated by running ChaCo-models and lesion load models separately, on the same subjects and with the same training/test/validation splits, and averaging the final predicted scores for each subject. The model performance was calculated using the averaged prediction scores.
+We evaluated whether performance would be improved by averaging predictions from multiple models. Two different ensemble models were run, testing two different hypotheses:
+
+\begin{itemize}
+\item H1: Models including demographic information (age, sex, and days post stroke) alongside lesion data will perform better than models with lesion data or demographic data alone (i.e., variance explained from lesion data and demographic data is not redundant).
+\item H2: Models including both lesion load and ChaCo scores will perform better than models with lesion load or ChaCo scores alone.
+\end{itemize}
+
+from the lesion load models and from the data-driven feature selection ChaCo models. These ensemble models were generated by running ChaCo-models and lesion load models separately, on the same subjects and with the same training/test/validation splits, and averaging the final predicted scores for each subject. The model performance was calculated using the averaged prediction scores.
+
+Demographic information included age, sex, and days post stroke. A standard linear regression model was used to model the relationship between demographic information and motor impairment. 
+
 
 \subsubsection{Model performance}
 The performance of the model was assessed by calculating the coefficient of determination ($explained\_variance\_score$ in sklearn), or $R^2$, which captures the percent of variation in cognitive scores explained by the variation in the model predictors:
@@ -218,7 +222,7 @@ The data shows the demographics and motor scores of subjects at different sites.
 \begin{figure}[htp]
 \centering
 \includegraphics[width=1\linewidth]{figures/Analysis6.png}
-\caption{Regression coefficients and model performance using Group KFold cross-validation (test/validate on independent imaging site). \textbf{A.} and \textbf{B.} display regression coefficients for regional ChaCo scores (FreeSurfer 86-region atlas, and Shen268-region atlas, respectively). Average feature weights for regions that were selected in at least half of the models (i.e., were included in the model in at least 250/500 outer folds). \textbf{C.} Sensorimotor area tract template feature importance for analysis 2. Includes primary motor cortex (M1), dorsal premotor cortex (PMd), ventral premotor cortex (PMv), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), primary sensory cortex (S1).}
+\caption{Acute models.\textbf{A.} and \textbf{B.} display regression coefficients for regional ChaCo scores (FreeSurfer 86-region atlas, and Shen268-region atlas, respectively). Average feature weights for regions that were selected in at least half of the models (i.e., were included in the model in at least 250/500 outer folds). \textbf{C.} Sensorimotor area tract template feature importance for analysis 2. Includes primary motor cortex (M1), dorsal premotor cortex (PMd), ventral premotor cortex (PMv), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), primary sensory cortex (S1).}
 \label{nemotool}
 \end{figure}
 
