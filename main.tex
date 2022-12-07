@@ -66,7 +66,7 @@ These biomarkers have typically been associated with motor scores within a sampl
 Indeed, the optimal set of features extracted from lesion data may not be directly related to hemiparesis per se (\cite{Bzdok2020-py, Sperber2021-lw}). Because of the hierarchical, non-random distribution of lesion topography (\cite{Mah2014-cb,Wang2019-dz}), damage to voxels outside of the motor system may meaningfully predict chronic motor impairment (\cite{Sperber2021-lw}). Machine learning models that incorporate features in a data-driven way may be able to discover lesion-deficit associations beyond the current suite of theory-driven biomarkers like those in the motor system (\cite{Kasties2021-rm, Calesella2021-kp}). We generate a measure of structural disconnection for all cortical and subcortical areas of the brain using the Network Modification tool, and use data-driven feature selection to identify regions that are relevant for the prediction of motor outcomes. 
 
 
-In this paper, we robustly compare the predictive accuracy of several imaging biomarkers of post-stroke motor impairment by assessing their out-of-sample performance using the ENIGMA dataset, a multi-site stroke lesion database (\cite{Liew2020-ps}). We compare theory-driven features (i.e. motor-related CST lesion load) with data-driven imaging features. As the time between the stroke and the motor assessment increases, external factors may influence the relationship between lesion location and motor outcome. Models trained on chronic stroke subjects may therefore struggle to identify signal related to motor outcomes. We assessed whether models trained on data from acute subjects predict motor outcomes of chronic subjects better than models trained on chronic stroke data.
+In this paper, we robustly compare the predictive accuracy of several imaging biomarkers of post-stroke motor impairment by assessing their out-of-sample performance using the ENIGMA dataset, a multi-site stroke lesion database (\cite{Liew2020-ps}). We compare theory-driven features (i.e. motor-related CST lesion load) with data-driven imaging features. 
 
 
 
@@ -84,7 +84,7 @@ The M1-corticospinal tract segmentation was obtained from the sensorimotor area 
 
 Previously, \cite{Ito2022-em} have shown that models that use the corticospinal tract lesion load fibers originating the ventral premotor cortex in addition to lesion load of the primary motor cortex have the strongest associations with motor scores.
 
-Corticospinal tract segmentations were obtained from the sensorimotor area tract template (SMATT), a set of 6 tracts derived from probabilistic tractography seeded in primary motor cortex (M1), dorsal and ventral premotor cortex (PMd and PMv, respectively), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), and primary somatosensory cortex (S1) (Figure \ref{smatt_template}) (\cite{Archer2018-ti}). Lesion load for each tract was calculated as:
+Corticospinal tract segmentations were obtained from the sensorimotor area tract template (SMATT), a set of 6 tracts derived from probabilistic tractography seeded in primary motor cortex (M1), dorsal and ventral premotor cortex (PMd and PMv, respectively), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), and primary somatosensory cortex (S1) (Figure \ref{fig1}) (\cite{Archer2018-ti}). Lesion load for each tract was calculated as:
 \begin{equation}
     \textit{Lesion load} = \frac{\textit{Number of lesioned voxels that intersect with the tract}}{\textit{Sum of voxels in tract}}
 \end{equation}
@@ -98,7 +98,7 @@ Motor scores were predicted using ridge regression models with ipsilesional lesi
 \centering
 \includegraphics[width=1.0\linewidth]{figures/Multi-panelML.png}
 \caption{Overview of the Network Modification tool. Binary lesion masks in MNI space representing the presence of a stroke lesion in a given voxel are provided by the user. Each lesion mask is embedded into 420 unrelated healthy structural connectomes (separately for each healthy subject) and the regional or pairwise change in connectivity (ChaCo) scores are calculated and averaged across healthy subjects. }
-\label{nemotool}
+\label{fig1}
 \end{figure}
 Lesion masks in $1mm^3$ MNI v6 space were processed with the Network Modification Tool v2 (NeMo) pipeline (\cite{Kuceyeski2013-nk}) (https://github.com/kjamison/nemo for more detailed information). Given a lesion mask, the NeMo tool produces outputs that reflect the impact of the lesion on the white matter tracts connecting brain regions. The NeMo tool identifies every white matter streamline that intersects with a lesion and determines the brain regions at the endpoints of those streamlines, whose structural connections we expect to be disrupted (Figure \ref{nemotool}). The NeMo tool uses a reference structural connectome (SC) dataset of 420 unrelated subjects from the Human Connectome Project Young Adult database. Structural connectivity for HCP subjects was obtained using deterministic tractography (SD stream) with dynamic seeding, with additional SIFT2 weighting for each of 5 million streamlines (\cite{Smith2015-eb}).
 
