@@ -139,7 +139,7 @@ r047 & 44 (14/30) & 65.5 (12.0, 43.0-93.0) & 0.65 (0.44, 0.06-0.98) & 38.1 (53.7
 r048 & 43 (16/27) & 68.0 (12.5, 37.0-80.0) & 0.79 (0.44, 0.00-1.00) & 46.2 (49.8, 6.8-174.9) \\
 r052 & 32 (12/20) & 63.0 (13.5, 34.0-85.0) & 0.41 (0.09, 0.21-0.52) & 39.1 (42.2, 6.1-247.1) \\
 r053 & 2 (1/1) & 65.0 (3.0, 62.0-68.0) & 0.63 (0.25, 0.38-0.88) & 6.2 (0.1, 6.1-6.3) \\
-\hline\\
+ \arrayrulecolor{black!30}\midrule
 All sites & 462 (159/303) & 63.1 (17.0, 23.0-93.0) & 0.7 (0.5, 0.0-1.0) & 31.3 (0.1, 6.0-360.2)  \\
 \bottomrule
 \end{tabular}
@@ -245,37 +245,41 @@ All twelve sensorimotor tracts had significant (?) regression coefficients, sugg
 \\
 \begin{table}[h]
 \centering
-\caption{Test performance of all models evaluated, displaying median $R^2$ and median correlation of average hold-out performances (i.e. average across 5 outer folds) across 100 permutations. The first 5 rows contain results from models using lesion information only. The second 5 rows contain results from ensemble models that average predictions from lesion information and demographcis (age, sex, days post stroke). The final 6 rows contain results from ensemble models averaging predictions between two types of lesion information (lesion load predictions and ChaCo score predictions), with the final 3 rows showing results from ensemble models using lesion load, ChaCo scores, and demographics. Demog. = demographics, Ipsi. SMATT LL = ipsilesional sensorimotor tract template lesion load, L/R SMATT LL = left and right sensorimotor tract template lesion load, M1 CST LL = M1 corticospinal tract lesion load, ChaCo = Change in Connectivity, fs86 = FreeSurfer 86-region atlas}
 \label{table:5}
-\begin{tabular}{rrrrr}
+\begin{tabular}{lrrrr}
 \toprule
  &  & \multicolumn{2}{c}{Median performance} \\
- &  & Corr. (Std. dev.) & $R^2$ (Std. dev.) \\
+Ensemble type &  Model name & Corr. (Std. dev.) & $R^2$ (Std. dev.) \\
 \midrule
 \multirow[t]{5}{*}{None} & M1 CST LL & 0.394 (0.006) & 0.152 (0.005) \\
  & Ipsi. SMATT LL & 0.435 (0.007) & 0.185 (0.007) \\
  & L/R SMATT LL & 0.439 (0.009) & 0.187 (0.009) \\
  & ChaCo (shen268) & 0.431 (0.016) & 0.181 (0.027) \\
  & ChaCo (fs86) & 0.429 (0.014) & 0.179 (0.013) \\
+ \arrayrulecolor{black!30}\midrule
 \multirow[t]{5}{*}{Demographics} & M1 CST LL $\Plus$ demog. & 0.436 (0.007) & 0.165 (0.005) \\
  & Ipsi. SMATT LL $\Plus$ demog. & 0.459 (0.006) & 0.186 (0.005) \\
  & L/R SMATT LL $\Plus$ demog. & 0.465 (0.009) & 0.189 (0.006) \\
  & ChaCo (shen268) $\Plus$ demog. & 0.457 (0.011) & 0.187 (0.010) \\
  & ChaCo (fs86) $\Plus$ demog. & 0.453 (0.010) & 0.181 (0.007) \\
+ \arrayrulecolor{black!30}\midrule
 \multirow[t]{6}{*}{Lesion load} & M1 CST LL $\Plus$ ChaCo (fs86) & 0.454 (0.008) & 0.197 (0.007) \\
  plus ChaCo & Ipsi. SMATT LL $\Plus$ ChaCo (fs86) & 0.463 (0.009) & 0.206 (0.007) \\
  & L/R SMATT LL $\Plus$ ChaCo (fs86) & 0.463 (0.010) & 0.207 (0.009) \\
  & M1 CST LL $\Plus$ ChaCo (shen268) & 0.454 (0.008) & 0.197 (0.006) \\
  & Ipsi. SMATT LL $\Plus$ ChaCo (shen268) & 0.464 (0.009) & 0.208 (0.007) \\
  & L/R SMATT LL $\Plus$ ChaCo (shen268) & 0.463 (0.009) & 0.208 (0.007) \\
-\multirow[t]{6}{*}{Lesion load} & M1 CST LL $\Plus$ ChaCo  (fs86) & 0.478 (0.007) & 0.196 (0.005) \\
- plus Chaco & Ipsi. SMATT LL $\Plus$ ChaCo  (fs86) & 0.483 (0.008) & 0.206 (0.006) \\
-plus demographics & L/R SMATT LL $\Plus$ ChaCo  (fs86) & 0.485 (0.008) & 0.207 (0.006) \\
- & M1 CST LL $\Plus$ ChaCo  (shen268) & 0.478 (0.008) & 0.199 (0.005) \\
- & Ipsi. SMATT LL $\Plus$ ChaCo  (shen268) & 0.484 (0.010) & 0.208 (0.007) \\
- & L/R SMATT LL $\Plus$ ChaCo  (shen268) & 0.484 (0.010) & 0.208 (0.007) \\
+ \arrayrulecolor{black!30}\midrule
+\multirow[t]{6}{*}{Lesion load}  & M1 CST LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.478 (0.007) & 0.196 (0.005) \\
+ plus ChaCo & Ipsi. SMATT LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.483 (0.008) & 0.206 (0.006) \\
+ plus demographics & L/R SMATT LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.485 (0.008) & 0.207 (0.006) \\
+ & M1 CST LL $\Plus$ ChaCo  (shen268) $\Plus$ demog. & 0.478 (0.008) & 0.199 (0.005) \\
+ & Ipsi. SMATT LL $\Plus$ ChaCo  (shen268) $\Plus$ demog. & 0.484 (0.010) & 0.208 (0.007) \\
+ & L/R SMATT LL $\Plus$ ChaCo  (shen268) $\Plus$ demog. & 0.484 (0.010) & 0.208 (0.007) \\
 \bottomrule
 \end{tabular}
+
+\caption{Test performance of all models evaluated, displaying median $R^2$ and median correlation of average hold-out performances (i.e. average across 5 outer folds) across 100 permutations. The first 5 rows contain results from models using lesion information only. The second 5 rows contain results from ensemble models that average predictions from lesion information and demographcis (age, sex, days post stroke). The final 6 rows contain results from ensemble models averaging predictions between two types of lesion information (lesion load predictions and ChaCo score predictions), with the final 3 rows showing results from ensemble models using lesion load, ChaCo scores, and demographics. Demog. = demographics, Ipsi. SMATT LL = ipsilesional sensorimotor tract template lesion load, L/R SMATT LL = left and right sensorimotor tract template lesion load, M1 CST LL = M1 corticospinal tract lesion load, ChaCo = Change in Connectivity, fs86 = FreeSurfer 86-region atlas}
 \end{table}
 
 
@@ -290,17 +294,12 @@ Average feature weights for regions that were selected in at least half of the m
 \begin{figure}[htp]
 \centering
 \includegraphics[width=1\linewidth]{figures/Analysis2.png}
-\caption{Regression coefficients and model performance using Group KFold cross-validation (test/validate on independent imaging site). \textbf{A.} and \textbf{B.} display regression coefficients for regional ChaCo scores (FreeSurfer 86-region atlas, and Shen268-region atlas, respectively). Average feature weights for regions that were selected in at least half of the models (i.e., were included in the model in at least 250/500 outer folds). \textbf{C.} Sensorimotor area tract template feature importance for analysis 2. Includes primary motor cortex (M1), dorsal premotor cortex (PMd), ventral premotor cortex (PMv), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), primary sensory cortex (S1).}
+\caption{Ensemble model results. coefficients and model performance using Group KFold cross-validation (test/validate on independent imaging site). \textbf{A.} and \textbf{B.} display regression coefficients for regional ChaCo scores (FreeSurfer 86-region atlas, and Shen268-region atlas, respectively). Average feature weights for regions that were selected in at least half of the models (i.e., were included in the model in at least 250/500 outer folds). \textbf{C.} Sensorimotor area tract template feature importance for analysis 2. Includes primary motor cortex (M1), dorsal premotor cortex (PMd), ventral premotor cortex (PMv), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), primary sensory cortex (S1).}
 \label{nemotool}
 \end{figure}
 
 
-\begin{figure}[htp]
-\centering
-\includegraphics[width=1\linewidth]{figures/Analysis8.png}
-\caption{Demographic ensemble model results. coefficients and model performance using Group KFold cross-validation (test/validate on independent imaging site). \textbf{A.} and \textbf{B.} display regression coefficients for regional ChaCo scores (FreeSurfer 86-region atlas, and Shen268-region atlas, respectively). Average feature weights for regions that were selected in at least half of the models (i.e., were included in the model in at least 250/500 outer folds). \textbf{C.} Sensorimotor area tract template feature importance for analysis 2. Includes primary motor cortex (M1), dorsal premotor cortex (PMd), ventral premotor cortex (PMv), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), primary sensory cortex (S1).}
-\label{nemotool}
-\end{figure}
+
 
 
 \section{Discussion}
