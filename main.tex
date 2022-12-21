@@ -53,7 +53,7 @@ footskip=.25in]{geometry}
 \begin{document} 
 
 \begin{center}
-{\large \section*{Systematic comparison of imaging biomarkers of chronic stroke motor outcome }}
+{\large \section*{Systematic comparison of imaging biomarkers of chronic stroke motor outcome in the ENIGMA Stroke Recovery Working Group dataset}}
 \end{center}
 
 \begin{center}
@@ -95,11 +95,11 @@ In this paper, we robustly compare the predictive accuracy of several imaging bi
 \subsection{Materials}
 A subset of cross‐sectional data from the ENIGMA Stroke Recovery Working Group database (available as of 10 Sept. 2021) was used. Details of the ENIGMA Stroke Recovery procedures and methods are available in (\cite{Liew2020-ps}). The data were derived from 22 research studies (sites) (Table \ref{table:Demographics}). Informed consent was obtained from all subjects, and data were collected in compliance with each institution’s local ethical review boards and in accordance with the Declaration of Helsinki.
 
-ENIGMA Stroke Recovery participants with the following data were included: (1) high‐resolution (1‐mm isotropic) T1‐weighted brain MRI (T1w) acquired with a 3T MRI scanner; (2) time since stroke at time of imaging greater than 180 days; (3) age, (4), sex, and (5) assessment of motor function (from one of several tests: FMA‐UE; acquired on a scale from 0 to 66: 0=severe sensorimotor impairment, 66=no sensorimotor impairment and normalized to the range 0 to 1 where 0=severe sensorimotor impairment), ARAT; NIHSS \hl{*In the process of obtaining more information from Lei/Bethany, ideally a breakdown of number of subjects for each test*}). Subjects with cortical and subcortical lesions were included in the study; lesions were not flipped (see Figure \ref{lesionoverlap} for lesion distribution).
+ENIGMA Stroke Recovery participants with the following data were included: (1) high‐resolution (1‐mm isotropic) T1‐weighted brain MRI (T1w) acquired with a 3T MRI scanner; (2) time since stroke at time of imaging greater than 180 days; (3) age, (4), sex, and (5) assessment of motor function (from one of several tests: FMA‐UE; acquired on a scale from 0 to 66: 0=severe sensorimotor impairment, 66=no sensorimotor impairment and normalized to the range 0 to 1 where 0=severe sensorimotor impairment), ARAT; NIHSS \hl{*In the process of obtaining more information from Lei/Bethany, ideally a breakdown of number of subjects for each test*}). Subjects with cortical and subcortical lesions were included in the study; lesions were not flipped (see Figure \ref{lesiondist} for lesion distribution).
 
 
 
-Because we were interested in predicting chronic impairments, we only included participants with chronic stroke (defined as data acquired at least 180 days poststroke (\cite{Bernhardt2017-av}). Behavioral data were collected within approximately 72 hours of the MRI. 
+Because we were interested in predicting chronic impairments, we only included participants with chronic stroke (defined as data acquired at least 180 days post stroke (\cite{Bernhardt2017-av}). Behavioral data were collected within approximately 72 hours of the MRI. 
 
 
 Exclusion criteria included participants with no identifiable lesions. 
@@ -159,7 +159,7 @@ The lesion load of the corticospinal tract originating from the primary motor co
 Left and right hemisphere M1-CST segmentations in MNI space were obtained from the high-resolution sensorimotor area tract template (SMATT) (\cite{Archer2018-ti}). M1-CST Lesion load had a heavy tail distribution (Figure \ref{lesion_load_dist}a).
  
 \subsubsection*{Lesion load of sensorimotor tracts}
-Sensorimotor tract segmentations were obtained from the sensorimotor area tract template (SMATT), a set of 12 tracts derived from probabilistic tractography seeded in the left and right primary motor cortex (M1), dorsal and ventral premotor cortex (PMd and PMv, respectively), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), and primary somatosensory cortex (S1) (Figure \ref{fig:fig1}) (\cite{Archer2018-ti}). Lesion load was calculated as above, for all 12 tracts (i.e. across both hemispheres) and for 6 ipsilesional tracts. For subjects with brainstem, cerebellar, and/or bilateral cerebral strokes, ipsilesional lesion load was calculated as the average lesion load of the left and right hemisphere tracts.
+Sensorimotor tract segmentations were obtained from the sensorimotor area tract template (SMATT), a set of 12 tracts derived from probabilistic tractography seeded in the left and right primary motor cortex (M1), dorsal and ventral premotor cortex (PMd and PMv, respectively), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), and primary somatosensory cortex (S1) (Figure \ref{smatt}) (\cite{Archer2018-ti}). Lesion load was calculated as above, for all 12 tracts (i.e. across both hemispheres) and for 6 ipsilesional tracts. For subjects with brainstem, cerebellar, and/or bilateral cerebral strokes, ipsilesional lesion load was calculated as the average lesion load of the left and right hemisphere tracts.
 
 Lesion loads from all tracts were positively correlated with one another and negatively correlated with motor scores (Figure \ref{lesion_load_dist}b,c, \ref{smatt_pairwise_correlations}, \ref{smatt_pairwise_correlations_bi}). 
 %\subsubsection*{Deriving ChaCo scores (change in connectivity) from lesion masks}
@@ -167,25 +167,24 @@ Lesion loads from all tracts were positively correlated with one another and neg
 \begin{figure}
 \begin{subfigure}{1\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{figures/smatt_template.png}
+  \includegraphics[width=1\linewidth]{figures/SMATT.png}
   \caption{Sensorimotor tract template atlas (SMATT), displaying only right hemisphere tracts. Includes supplementary motor area (SMA), dorsal premotor cortex (PMd), ventral premotor cortex (PMv), pre-supplementary motor area (pre-SMA), primary sensory cortex (S1),  and primary motor cortex (M1)}
-  \label{fig:fig1}
+  \label{smatt}
 \end{subfigure}
-\caption{Lesion biomarkers}
 \label{fig:fig}
 
 \begin{subfigure}{1\textwidth}
   \centering
-  \includegraphics[width=1\linewidth]{figures/NetworkModificationTool.png}
+  \includegraphics[width=1\linewidth]{figures/NeMo.png}
   \caption{Overview of the Network Modification tool. Binary lesion masks in MNI space representing the presence of a stroke lesion in a given voxel are provided by the user. Each lesion mask is embedded into 420 unrelated healthy structural connectomes (separately for each healthy subject) and the regional or pairwise change in connectivity (ChaCo) scores are calculated and averaged across healthy subjects. }
-  \label{fig:fig2}
+  \label{nemo}
 \end{subfigure}
 
 \end{figure}
 
 \subsubsection*{Regional structural disconnection: ChaCo scores}
 
-Lesion masks in $1mm^3$ MNI v6 space were processed with the Network Modification Tool (NeMo Tool) v2 pipeline (\cite{Kuceyeski2013-nk}) (https://github.com/kjamison/nemo for more detailed information). Given a lesion mask, the NeMo tool produces outputs that reflect the impact of the lesion on the white matter tracts connecting brain regions. The NeMo tool identifies every white matter streamline that intersects with a lesion and determines the brain regions at the endpoints of those streamlines, whose structural connections are putatively disrupted (Figure \ref{fig:fig2}). The NeMo tool uses a reference structural connectome dataset of 420 unrelated subjects from the Human Connectome Project (HCP) Young Adult database. Structural connectivity for HCP subjects was obtained using deterministic tractography (SD stream) with dynamic seeding, with additional SIFT2 weighting for each of 5 million streamlines (\cite{Smith2015-eb}). Regional change in connectivity (ChaCo) scores, or the ratio of the number of disrupted streamlines divided by the total number of streamlines for each region, were calculated for all grey matter regions. Regional ChaCo scores from two different altases were compared: the 86-region Desikan-Killiany Atlas (68 cortical regions $\Plus$ 18 subcortical regions, excluding brainstem) from FreeSurfer ("fs86" for short), which contains coarse anatomically parcellated regions (\cite{Desikan2006-vf,Fischl2002-lb}), and the 268-region Shen atlas ("shen268" for short), which contains more fine-grained functionally parcellated cortical and subcortical regions (\cite{Shen2013-zn}).
+Lesion masks in $1mm^3$ MNI v6 space were processed with the Network Modification Tool (NeMo Tool) v2 pipeline (\cite{Kuceyeski2013-nk}) (https://github.com/kjamison/nemo for more detailed information). Given a lesion mask, the NeMo tool produces outputs that reflect the impact of the lesion on the white matter tracts connecting brain regions. The NeMo tool identifies every white matter streamline that intersects with a lesion and determines the brain regions at the endpoints of those streamlines, whose structural connections are putatively disrupted (Figure \ref{nemo}). The NeMo tool uses a reference structural connectome dataset of 420 unrelated subjects from the Human Connectome Project (HCP) Young Adult database. Structural connectivity for HCP subjects was obtained using deterministic tractography (SD stream) with dynamic seeding, with additional SIFT2 weighting for each of 5 million streamlines (\cite{Smith2015-eb}). Regional change in connectivity (ChaCo) scores, or the ratio of the number of disrupted streamlines divided by the total number of streamlines for each region, were calculated for all grey matter regions. Regional ChaCo scores from two different altases were compared: the 86-region Desikan-Killiany Atlas (68 cortical regions $\Plus$ 18 subcortical regions, excluding brainstem) from FreeSurfer ("fs86" for short), which contains coarse anatomically parcellated regions (\cite{Desikan2006-vf,Fischl2002-lb}), and the 268-region Shen atlas ("shen268" for short), which contains more fine-grained functionally parcellated cortical and subcortical regions (\cite{Shen2013-zn}).
 
 
 \subsection{Prediction models}
@@ -319,6 +318,15 @@ Average feature weights for regions that were selected in at least half of the m
 
 \beginsupplement
 \section*{Supplementary Figures}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{figures/distribution_lesions.png}
+\caption{Distribution of lesions in ENIGMA cohort.}
+\label{lesiondist}
+\end{figure}
+
+
 \begin{figure}
 \begin{subfigure}{0.5\textwidth}
   \centering
@@ -361,87 +369,5 @@ Average feature weights for regions that were selected in at least half of the m
 
 
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=1\linewidth]{figures/Analysis7.png}
-\caption{Results from ensemble models with acute subjects (age, sex, time since stroke).}
-\label{ensemble}
-\end{figure}
-
-\begin{table}[h]
-\centering
-\caption{Styled LaTeX Table}
-\label{table:5}
-\begin{tabular}{rrrrr}
-\toprule
- &  & \multicolumn{2}{c}{Median performance} \\
- &  & Corr. (Std. dev.) & $R^2$ (Std. dev.) \\
-\midrule
-\multirow[t]{4}{*}{none} & M1 CST LL & 0.394 (0.004) & 0.142 (0.004) \\
- & Ipsi. SMATT LL & 0.430 (0.004) & 0.174 (0.004) \\
- & L/R SMATT LL & 0.446 (0.006) & 0.188 (0.006) \\
- & ChaCo (shen268) & 0.469 (0.010) & 0.210 (0.012) \\
-\multirow[t]{4}{*}{demog} & M1 CST LL $\Plus$ demog. & 0.424 (0.005) & 0.173 (0.004) \\
- & Ipsi. SMATT LL $\Plus$ demog. & 0.457 (0.006) & 0.199 (0.004) \\
- & L/R SMATT LL $\Plus$ demog. & 0.462 (0.007) & 0.203 (0.004) \\
- & ChaCo (shen268) $\Plus$ demog. & 0.481 (0.009) & 0.215 (0.007) \\
-\multirow[t]{6}{*}{chaco ll} & M1 CST LL $\Plus$ ChaCo (fs86) & 0.448 (0.005) & 0.199 (0.005) \\
- & Ipsi. SMATT LL $\Plus$ ChaCo (fs86) & 0.462 (0.006) & 0.212 (0.006) \\
- & L/R SMATT LL $\Plus$ ChaCo (fs86) & 0.469 (0.005) & 0.219 (0.005) \\
- & M1 CST LL $\Plus$ ChaCo (shen268) & 0.466 (0.005) & 0.216 (0.004) \\
- & Ipsi. SMATT LL $\Plus$ ChaCo (shen268) & 0.478 (0.006) & 0.226 (0.006) \\
- & L/R SMATT LL $\Plus$ ChaCo (shen268) & 0.482 (0.006) & 0.230 (0.006) \\
-\multirow[t]{6}{*}{chaco ll demog} & M1 CST LL $\Plus$ ChaCo  (fs86) & 0.473 (0.006) & 0.212 (0.005) \\
- & Ipsi. SMATT LL $\Plus$ ChaCo  (fs86) & 0.489 (0.006) & 0.228 (0.005) \\
- & L/R SMATT LL $\Plus$ ChaCo  (fs86) & 0.491 (0.006) & 0.228 (0.005) \\
- & M1 CST LL $\Plus$ ChaCo  (shen268) & 0.483 (0.006) & 0.222 (0.005) \\
- & Ipsi. SMATT LL $\Plus$ ChaCo  (shen268) & 0.500 (0.007) & 0.237 (0.006) \\
- & L/R SMATT LL $\Plus$ ChaCo  (shen268) & 0.499 (0.007) & 0.237 (0.006) \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}
-\begin{tabular}{|l|l|r|r|r|r|}
-%\captionof{table}{Site-specific demographic data.}
-\hline {} &  Site &   N. &  N. F &  Mean age &  Mean normed motor \\ \hline
-\textbf{0 } &  r001 &  39 &         10 &     59.62 &               0.62 \\ 
-\textbf{1 } &  r002 &  12 &          6 &     65.75 &               0.45 \\
-\textbf{2 } &  r003 &  15 &          6 &     59.53 &               0.26 \\ 
-\textbf{3 } &  r004 &  19 &          7 &     44.63 &               0.20 \\ 
-\textbf{4 } &  r005 &  27 &         12 &     64.93 &               0.67 \\
-\textbf{5 } &  r009 &  57 &         16 &     67.84 &               0.92 \\ 
-\textbf{6 } &  r010 &  26 &          7 &     57.15 &               0.97 \\ 
-\textbf{7 } &  r011 &  28 &         10 &     57.21 &               0.89 \\ 
-\textbf{8 } &  r015 &  15 &          0 &     59.60 &               0.72 \\ 
-\textbf{9 } &  r017 &  14 &          0 &     57.43 &               0.52 \\
-\textbf{10} &  r018 &  11 &          0 &     59.73 &               0.71 \\ 
-\textbf{11} &  r021 &  12 &          0 &     60.83 &               0.90 \\
-\textbf{12} &  r022 &  14 &          0 &     57.86 &               0.57 \\ 
-\textbf{13} &  r023 &  14 &          8 &     58.00 &               0.43 \\ 
-\textbf{14} &  r024 &  21 &          0 &     61.43 &               0.90 \\ 
-\textbf{15} &  r025 &  16 &          3 &     64.19 &               0.73 \\ 
-\textbf{16} &  r027 &  28 &          8 &     58.18 &               0.31 \\
-\textbf{17} &  r028 &  21 &          6 &     58.14 &               0.74 \\
-\textbf{18} &  r029 &   5 &          0 &     61.20 &               0.71 \\ 
-\textbf{19} &  r031 &   1 &          0 &     52.00 &               0.68 \\ 
-\textbf{20} &  r033 &   5 &          0 &     50.00 &               0.62 \\ 
-\textbf{21} &  r034 &  15 &          6 &     57.26 &               0.80 \\ 
-\textbf{22} &  r035 &  15 &          6 &     62.20 &               0.63 \\ 
-\textbf{23} &  r038 &  18 &          7 &     62.17 &               0.88 \\ 
-\textbf{24} &  r040 &  14 &          7 &     60.64 &               0.65 \\ 
-\textbf{25} &  r042 &  22 &         11 &     50.55 &               0.61 \\ 
-\textbf{26} &  r044 &   4 &          0 &     69.25 &               0.52 \\ 
-\textbf{27} &  r045 &   4 &          1 &     59.75 &               0.48 \\ 
-\textbf{28} &  r046 &  12 &          4 &     60.00 &               0.47 \\ 
-\textbf{29} &  r047 &  44 &         14 &     64.84 &               0.62 \\
-\textbf{30} &  r048 &  43 &         16 &     65.88 &               0.66 \\ 
-\textbf{31} &  r052 &  32 &         12 &     61.09 &               0.41 \\ 
-\textbf{32} &  r053 &   2 &          1 &     65.00 &               0.63 \\ 
-\hline
-\end{tabular}
-\end{table}
-
-The data shows the demographics and motor scores of subjects at different sites. Each row represents a site, and the columns show the site name, the number of subjects (N.), the number of female subjects (N. F), the mean age, and the mean normed motor score. The sites are numbered from 0 to 32. The number of subjects and the mean normed motor score vary across the sites, with some sites having more subjects and higher scores than others.
 
 \end{document}
