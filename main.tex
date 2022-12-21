@@ -64,7 +64,6 @@ Emily Olafson$^1$, Keith Jamison$^1$, Amy Kuceyeski$^1$
 
 %---------------------------------------------------------------------
 
-
 \section{Abstract}
 Ischemic stroke is a major cause of physical impairment, and up to a third of stroke survivors have poor motor outcomes five years after the event. However, the ability to predict long-term deficits from acute clinical information remains a challenge. The location of the stroke in the brain can explain some of the variance in long-term outcomes, and incorporating information about lesion location can improve prediction models. Automated lesion segmentation methods can now be used, but it is unclear how to optimally use volumetric lesion data to predict chronic motor outcomes. Several lesion biomarkers have been related to stroke motor outcome, but it is unclear whether they can accurately predict chronic impairments across a range of lesion topographies. Models that incorporate damage to additional sensorimotor regions beyond the primary motor cortex have been shown to explain more variance in post-stroke outcome than models that only incorporate primary motor cortex CST damage. These models typically incorporate damage to premotor, supplementary motor, pre-supplementary motor, and somatosensory cortices. Few studies have assessed the performance of these models with cross-validation. This paper presents a comparison of the predictive accuracy of several imaging biomarkers of post-stroke motor impairment using the ENIGMA dataset, a multi-site stroke lesion database. The models are compared using out-of-sample performance, and the results show that data-driven features outperform theory-driven features. The data-driven features also outperform models trained on chronic subjects when applied to acute subjects. These results highlight the potential of data-driven feature selection in identifying lesion-deficit associations beyond current theory-driven biomarkers.
 
@@ -87,26 +86,14 @@ Variables that are significantly associated with outcomes (typically derived fro
 \cite{Park2016-te} Quantification of structural damage can add to models explaining motor outcome after stroke, but assessment of corticospinal tract damage alone is unlikely to be sufficient when considering patients with stroke with a wide range of lesion topography.
 
 
-
 In this paper, we robustly compare the predictive accuracy of several imaging biomarkers of post-stroke motor impairment by assessing their out-of-sample performance using the ENIGMA dataset, a multi-site stroke lesion database (\cite{Liew2020-ps}). We compare theory-driven features (i.e. motor-related CST lesion load) with data-driven imaging features. 
 
 
 \section{Materials and methods}
 \subsection{Materials}
-A subset of cross‐sectional data from the ENIGMA Stroke Recovery Working Group database (available as of 10 Sept. 2021) was used. Details of the ENIGMA Stroke Recovery procedures and methods are available in (\cite{Liew2020-ps}). The data were derived from 22 research studies (sites) (Table \ref{table:Demographics}). Informed consent was obtained from all subjects, and data were collected in compliance with each institution’s local ethical review boards and in accordance with the Declaration of Helsinki.
+A subset of cross‐sectional data from the ENIGMA Stroke Recovery Working Group database (available as of 10 Sept. 2021) was used in the study. Details of the ENIGMA Stroke Recovery procedures and methods are available in (\cite{Liew2020-ps}). The data were derived from 22 research studies (sites) (Table \ref{table:Demographics}). Informed consent was obtained from all subjects, and data were collected in compliance with each institution’s local ethical review boards and in accordance with the Declaration of Helsinki.
 
-ENIGMA Stroke Recovery participants with the following data were included: (1) high‐resolution (1‐mm isotropic) T1‐weighted brain MRI (T1w) acquired with a 3T MRI scanner; (2) time since stroke at time of imaging greater than 180 days; (3) age, (4), sex, and (5) assessment of motor function (from one of several tests: FMA‐UE; acquired on a scale from 0 to 66: 0=severe sensorimotor impairment, 66=no sensorimotor impairment and normalized to the range 0 to 1 where 0=severe sensorimotor impairment), ARAT; NIHSS \hl{*In the process of obtaining more information from Lei/Bethany, ideally a breakdown of number of subjects for each test*}). Subjects with cortical and subcortical lesions were included in the study; lesions were not flipped (see Figure \ref{lesiondist} for lesion distribution).
-
-
-
-Because we were interested in predicting chronic impairments, we only included participants with chronic stroke (defined as data acquired at least 180 days post stroke (\cite{Bernhardt2017-av}). Behavioral data were collected within approximately 72 hours of the MRI. 
-
-
-Exclusion criteria included participants with no identifiable lesions. 
-
-Inclusion criteria: subjects had to have a chronicity variable, normed motor score, and imaging.
-For a subset of the models, subjects had to have age, sex, and days post stroke. A subset of subjects did not have data on their age, sex, and days post stroke (full sample N = 629, median normalized motor score = 0.7, IQR = 0.5) .
-Lesions were segmented by the ENIGMA consortium and lesion masks were normalized to $1mm^3$ MNI v6 space. 
+ENIGMA Stroke Recovery participants with the following data were included: (1) high‐resolution (1‐mm isotropic) T1‐weighted brain MRI (T1w) acquired with a 3T MRI scanner; (2) time since stroke at time of imaging greater than 180 days (i.e. in the chronic phase of stroke (\cite{Bernhardt2017-av}; (3) age, (4), sex, and (5) assessment of motor function (from one of several tests: FMA‐UE; acquired on a scale from 0 to 66: 0=severe sensorimotor impairment, 66=no sensorimotor impairment and normalized to the range 0 to 1 where 0=severe sensorimotor impairment), ARAT; NIHSS \hl{*In the process of obtaining more information from Lei/Bethany, ideally a breakdown of number of subjects for each test*}). Behavioral data were collected within approximately 72 hours of the MRI. Subjects with cortical and subcortical lesions were included in the study; lesions were not flipped (see Figure \ref{lesiondist} for lesion distribution in MNI space). 
 
 \begin{table}[h]
 \centering
@@ -157,29 +144,24 @@ The lesion load of the corticospinal tract originating from the primary motor co
     \textit{Lesion load} = \frac{\textit{Number of lesioned voxels intersecting with  tract}}{\textit{Number of voxels in tract}}
 \end{equation}
 Left and right hemisphere M1-CST segmentations in MNI space were obtained from the high-resolution sensorimotor area tract template (SMATT) (\cite{Archer2018-ti}). M1-CST Lesion load had a heavy tail distribution (Figure \ref{lesion_load_dist}a).
- 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\linewidth]{figures/SMATT.png}
+    \caption{Sensorimotor tract template atlas (SMATT), displaying only right hemisphere tracts. Includes supplementary motor area (SMA), dorsal premotor cortex (PMd), ventral premotor cortex (PMv), pre-supplementary motor area (pre-SMA), primary sensory cortex (S1),  and primary motor cortex (M1)}
+    \label{smatt}
+\end{figure}
+
 \subsubsection*{Lesion load of sensorimotor tracts}
 Sensorimotor tract segmentations were obtained from the sensorimotor area tract template (SMATT), a set of 12 tracts derived from probabilistic tractography seeded in the left and right primary motor cortex (M1), dorsal and ventral premotor cortex (PMd and PMv, respectively), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), and primary somatosensory cortex (S1) (Figure \ref{smatt}) (\cite{Archer2018-ti}). Lesion load was calculated as above, for all 12 tracts (i.e. across both hemispheres) and for 6 ipsilesional tracts. For subjects with brainstem, cerebellar, and/or bilateral cerebral strokes, ipsilesional lesion load was calculated as the average lesion load of the left and right hemisphere tracts.
 
 Lesion loads from all tracts were positively correlated with one another and negatively correlated with motor scores (Figure \ref{lesion_load_dist}b,c, \ref{smatt_pairwise_correlations}, \ref{smatt_pairwise_correlations_bi}). 
-%\subsubsection*{Deriving ChaCo scores (change in connectivity) from lesion masks}
 
-\begin{figure}
-\begin{subfigure}{1\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{figures/SMATT.png}
-  \caption{Sensorimotor tract template atlas (SMATT), displaying only right hemisphere tracts. Includes supplementary motor area (SMA), dorsal premotor cortex (PMd), ventral premotor cortex (PMv), pre-supplementary motor area (pre-SMA), primary sensory cortex (S1),  and primary motor cortex (M1)}
-  \label{smatt}
-\end{subfigure}
-\label{fig:fig}
-
-\begin{subfigure}{1\textwidth}
+\begin{figure}[ht]
   \centering
   \includegraphics[width=1\linewidth]{figures/NeMo.png}
   \caption{Overview of the Network Modification tool. Binary lesion masks in MNI space representing the presence of a stroke lesion in a given voxel are provided by the user. Each lesion mask is embedded into 420 unrelated healthy structural connectomes (separately for each healthy subject) and the regional or pairwise change in connectivity (ChaCo) scores are calculated and averaged across healthy subjects. }
   \label{nemo}
-\end{subfigure}
-
 \end{figure}
 
 \subsubsection*{Regional structural disconnection: ChaCo scores}
@@ -192,6 +174,8 @@ Lesion masks in $1mm^3$ MNI v6 space were processed with the Network Modificatio
 
 Models were trained and evaluated using a 5-fold nested cross-validation loop. Data was first split into 5 training and tests folds, using an 80/20 train/test split. The size of each train/test fold is approximately 370/92 subjects, respectively. 
 
+Because inference and prediction are different goals and the feature maps derived from both types of studies can vary widely (\cite{Sperber2021-lw, Bzdok2020-py}), we included a correlation-based feature selection step. 
+
 \subsubsection*{M1-CST lesion load models}
 Linear regression was used to model the relationship between ipsilesional M1-CST-LL and chronic motor scores. The weights from best-performing model in the inner loop were used to predict motor scores for new subjects in the test fold. 
 
@@ -199,17 +183,47 @@ Linear regression was used to model the relationship between ipsilesional M1-CST
 Ridge regression was used to account for multicollinearity of imaging features. Lesion load values were normalized (by subtracting the mean across subjects and dividing by the l2-norm) prior to model fitting.
 
 \subsubsection*{ChaCo models}
-
 Ridge regression models were trained and evaluated using a 5-fold nested cross-validation loop. In the outer loop, the data was split into training and test partitions. Training data was further partitioned into training and validation in the inner loop. In the inner loop, two hyperparameters were optimized: the amount of regularization on regression coefficients ($\lambda$) and the number of features to include ($\kappa$). The correlation between all features (i.e. regional ChaCo scores) and motor scores was calculated and the features were ranked by absolute value correlation. The top $\kappa$ features were then included in the model. Importantly, feature selection was performed on the training/validation data after data was split into training and test sets, such that no hold-out test data was used in the selection of the set of features (\cite{Hastie2001-or}). The $\kappa$ values searched for fs86 spanned 30 values from 5 to 86, in log base-2 steps; the $\kappa$ values searched for shen268 spanned 30 values from 5 to 268, in log base-2 steps. 
-
-Out of sample cross-validation schemes.
-
-Because inference and prediction are different goals and the feature maps derived from both types of studies can vary widely (\cite{Sperber2021-lw, Bzdok2020-py}), we included a correlation-based feature selection step. 
 
 
 \subsubsection*{Ensemble models}
-In order to improve prediction accuracies, we evaluated whether performance would be improved by averaging predictions from multiple models, combining several imaging biomarker metrics alongside demographic features like age, sex, and days post stroke. A standard linear regression model was used to model the relationship between demographic information and motor impairment. 
+To test whether lesion load and ChaCo biomarkers provide complementary information for predicting chronic motor outcomes, we evaluated the performance of several ensemble models that average predictions from different learners \cite{Hastie2001-or}. The idea of ensemble learning is to build a prediction model by combining the strengths of a collection of simpler base models. 
 
+whether performance would be improved by averaging predictions from multiple models, combining several imaging biomarker metrics alongside demographic features like age, sex, and days post stroke. A standard linear regression model was used to model the relationship between demographic information and motor impairment. 
+\begin{table}[h]
+\centering
+\caption{Styled LaTeX Table}
+\label{table:5}
+\begin{tabular}{rrrrr}
+\toprule
+ &  & \multicolumn{2}{c}{Median performance} \\
+ &  & Corr. (Std. dev.) & $R^2$ (Std. dev.) \\
+\midrule
+\multirow[t]{5}{*}{none} & M1 CST LL & 0.394 (0.006) & 0.152 (0.005) \\
+ & Ipsi. SMATT LL & 0.435 (0.007) & 0.185 (0.007) \\
+ & L/R SMATT LL & 0.439 (0.009) & 0.187 (0.009) \\
+ & ChaCo (shen268) & 0.429 (0.017) & 0.180 (0.024) \\
+ & ChaCo (fs86) & 0.441 (0.014) & 0.188 (0.012) \\
+\multirow[t]{5}{*}{demog} & M1 CST LL $\Plus$ demog. & 0.437 (0.006) & 0.167 (0.004) \\
+ & Ipsi. SMATT LL $\Plus$ demog. & 0.462 (0.008) & 0.187 (0.005) \\
+ & L/R SMATT LL $\Plus$ demog. & 0.464 (0.008) & 0.188 (0.006) \\
+ & ChaCo (shen268) $\Plus$ demog. & 0.456 (0.017) & 0.177 (0.029) \\
+ & ChaCo (fs86) $\Plus$ demog. & 0.461 (0.011) & 0.183 (0.007) \\
+\multirow[t]{6}{*}{chaco ll} & M1 CST LL $\Plus$ ChaCo (fs86) & 0.460 (0.007) & 0.199 (0.006) \\
+ & Ipsi. SMATT LL $\Plus$ ChaCo (fs86) & 0.470 (0.008) & 0.213 (0.006) \\
+ & L/R SMATT LL $\Plus$ ChaCo (fs86) & 0.469 (0.009) & 0.212 (0.007) \\
+ & M1 CST LL $\Plus$ ChaCo (shen268) & 0.454 (0.008) & 0.197 (0.006) \\
+ & Ipsi. SMATT LL $\Plus$ ChaCo (shen268) & 0.464 (0.009) & 0.208 (0.007) \\
+ & L/R SMATT LL $\Plus$ ChaCo (shen268) & 0.463 (0.009) & 0.208 (0.007) \\
+\multirow[t]{6}{*}{chaco ll demog} & M1 CST LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.481 (0.007) & 0.196 (0.004) \\
+ & Ipsi. SMATT LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.490 (0.007) & 0.208 (0.005) \\
+ & L/R SMATT LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.492 (0.008) & 0.208 (0.006) \\
+ & M1 CST LL $\Plus$ ChaCo  (shen268) $\Plus$ demog. & 0.478 (0.008) & 0.199 (0.005) \\
+ & Ipsi. SMATT LL $\Plus$ ChaCo  (shen268) $\Plus$ demog. & 0.484 (0.010) & 0.208 (0.007) \\
+ & L/R SMATT LL $\Plus$ ChaCo  (shen268) $\Plus$ demog. & 0.484 (0.010) & 0.208 (0.007) \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{itemize}
 \item H1: Models including demographic information (age, sex, and days post stroke) alongside lesion data will perform better than models with lesion data or demographic data alone (i.e., variance explained from lesion data and demographic data is not redundant).
