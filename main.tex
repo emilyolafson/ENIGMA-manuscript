@@ -12,6 +12,8 @@ footskip=.25in]{geometry}
 \usepackage{multirow}
 \usepackage{soul}
 
+\usepackage{xr}
+\externaldocument{main}
 \def\Plus{\texttt{+}}
 %\usepackage[english]{babel}   
 \usepackage[utf8]{inputenc}  
@@ -31,7 +33,6 @@ footskip=.25in]{geometry}
 \usepackage{booktabs}
 \usepackage{etoolbox}
 
-
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \usepackage[backend=biber,style=apa,sorting=none]{biblatex}
@@ -46,9 +47,7 @@ footskip=.25in]{geometry}
 \usepackage{indentfirst}
 \setlength{\parindent}{1cm}
 \usepackage[table]{xcolor}
-
 \setlength{\headsep}{1pt}
-%---------------------------------------------------------------------
 
 \begin{document} 
 
@@ -97,8 +96,51 @@ ENIGMA Stroke Recovery participants with the following data were included: (1) h
 
 \begin{table}[h]
 \centering
+\caption{Demographics for ENIGMA Stroke Recovery Working Group participants included in the training set by site}
+
 \label{table:5}
-\caption{Demographics for ENIGMA Stroke Recovery Working Group participants included in the study by site}
+\begin{tabular}{rrrrrr}
+\toprule
+ & Total N. & Median age (y) & Median motor  & Median time since   & Median lesion vol. \\
+Site ID & (F/M) & (IQR) & score (IQR) &  stroke (mos.) (IQR) & ($cm^3$) (IQR) \\
+\midrule
+r001 & 39 (10/29) & 61.0 (17.0) & 0.65 (0.23) & 23.5 (40.0) & 6.27 (18.06) \\
+r002 & 12 (6/6) & 69.5 (11.5) & 0.50 (0.41) & 73.2 (51.9) & 28.24 (31.71) \\
+r003 & 15 (6/9) & 61.0 (16.5) & 0.24 (0.20) & 48.8 (67.6) & 20.28 (76.88) \\
+r004 & 19 (7/12) & 44.0 (14.5) & 0.17 (0.16) & 50.4 (81.9) & 36.85 (44.29) \\
+r005 & 28 (12/16) & 65.5 (18.5) & 0.78 (0.50) & 27.5 (25.9) & 1.65 (29.15) \\
+r009 & 110 (30/80) & 70.0 (9.0) & 1.00 (0.09) & 14.5 (27.3) & 1.55 (5.94) \\
+r025 & 25 (7/18) & 66.0 (19.0) & 0.98 (0.20) & 10.2 (13.2) & 2.64 (8.36) \\
+r027 & 28 (8/20) & 57.0 (10.2) & 0.30 (0.16) & 19.3 (24.7) & 12.30 (62.13) \\
+r028 & 22 (6/16) & 63.0 (8.5) & 0.81 (0.23) & 24.5 (37.6) & 7.00 (41.07) \\
+r031 & 37 (10/27) & 58.0 (13.0) & 0.52 (0.38) & 4.6 (1.7) & 9.61 (37.54) \\
+r034 & 15 (6/9) & 58.4 (11.1) & 0.82 (0.20) & 61.3 (68.3) & 6.68 (34.99) \\
+r035 & 15 (6/9) & 64.0 (18.0) & 0.64 (0.52) & 33.5 (22.9) & 3.89 (31.56) \\
+r038 & 90 (37/53) & 67.0 (21.0) & 0.85 (0.64) & 3.4 (3.7) & 5.98 (30.30) \\
+r040 & 71 (39/32) & 64.0 (20.0) & 0.45 (0.53) & 2.3 (2.4) & 11.94 (64.57) \\
+r042 & 22 (11/11) & 48.5 (15.5) & 0.64 (0.19) & 29.6 (36.4) & 14.16 (49.53) \\
+r044 & 4 (0/4) & 68.0 (9.2) & 0.52 (0.25) & 43.7 (52.9) & 23.65 (67.00) \\
+r045 & 4 (1/3) & 62.0 (5.2) & 0.49 (0.24) & 96.1 (59.0) & 7.97 (6.66) \\
+r046 & 11 (3/8) & 62.0 (10.5) & 0.50 (0.29) & 86.3 (83.4) & 4.62 (19.82) \\
+r047 & 46 (15/31) & 66.0 (11.8) & 0.65 (0.45) & 34.1 (52.4) & 12.72 (39.81) \\
+r048 & 43 (16/27) & 68.0 (12.5) & 0.79 (0.44) & 46.2 (49.8) & 7.93 (43.45) \\
+r049 & 21 (12/9) & 65.0 (16.0) & 0.95 (0.00) & 0.0 (0.0) & 1.30 (2.18) \\
+r050 & 14 (7/7) & 68.0 (16.8) & 0.92 (0.10) & 0.0 (0.0) & 0.33 (0.40) \\
+r052 & 32 (12/20) & 63.0 (13.5) & 0.41 (0.09) & 39.1 (42.2) & 6.98 (51.55) \\
+r053 & 54 (21/33) & 63.5 (19.5) & 0.90 (0.18) & 3.0 (3.1) & 14.29 (28.85) \\
+r054 & 12 (5/7) & 65.5 (11.8) & 0.67 (0.83) & 0.4 (0.2) & 4.06 (14.15) \\
+\arrayrulecolor{black!30}\midrule
+All sites & 789 (293/496) & 64.0 (18.0) & 0.7 (0.5) & 12.2 (0.2) & 6.45 (32.48) \\
+\bottomrule
+\end{tabular}
+\caption*{Site breakdown of total sample size (N), number of females (F) and males (M), and information about age (years), normed motor scores, and time since stroke (days). IQR, interquartile range}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\label{table:5}
+\caption{Demographics for ENIGMA Stroke Recovery Working Group participants included in the test groups by site}
 \begin{tabular}{llllll}
 \toprule
  & Total N. & Median age (y) & Median motor  & Median time since   & Median lesion vol. \\
@@ -135,7 +177,7 @@ All sites & 462 (159/303) & 63.1 (17.0) & 0.7 (0.5) & 31.3 (0.1) & 6.71 (34.34) 
 \end{table}
 
 
-
+\ref{lesion_load_dist}
 
 \subsection{Derivation of lesion biomarkers}
 \subsubsection*{Lesion load of the ipsilesional primary motor cortex corticospinal tract}
@@ -284,73 +326,13 @@ Average feature weights for regions that were selected in at least half of the m
 
 
 
-
-
 \section{Discussion}
 
 \clearpage
 
-\newcommand{\beginsupplement}{%
-\setcounter{table}{0}
-\renewcommand{\thetable}{S\arabic{table}}%
-\setcounter{figure}{0}
-\renewcommand{\thefigure}{S\arabic{figure}}%
-}
+
 
 \printbibliography
-
-\beginsupplement
-\section*{Supplementary Figures}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.8\linewidth]{figures/distribution_lesions.png}
-\caption{Distribution of lesions in ENIGMA cohort.}
-\label{lesiondist}
-\end{figure}
-
-
-\begin{figure}
-\begin{subfigure}{0.5\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{figures/m1_lesionload.png}
-  \caption{M1-CST lesion load distribution.}
-  \label{fig:sfig1}
-\end{subfigure}
-\begin{subfigure}{0.5\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{figures/all_lesionload.png}
-  \caption{Ipsilesional sensorimotor tract template (SMATT) lesion load distribution.}
-  \label{fig:sfig2}
-\end{subfigure}
-\begin{subfigure}{1\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{figures/all2h_lesionload.png}
-  \caption{Left and right hemisphere sensorimotor tract template (SMATT) lesion load distribution.}
-  \label{fig:sfig2}
-\end{subfigure}
-\caption{Distribution of lesion load variables for chronic subjects.}
-\label{lesion_load_dist}
-\end{figure}
-
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.8\linewidth]{figures/SMATT_scatterplts.png}
-\caption{Correlations between lesion load calculated for each ipsilesional tract in the sensorimotor area tract template atlas.}
-\label{smatt_pairwise_correlations}
-\end{figure}
-
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=1\linewidth]{figures/SMATT_bi_scatterplts.png}
-\caption{Correlations between lesion load calculated for each left and right hemisphere tract in the sensorimotor area tract template atlas.}
-\label{smatt_pairwise_correlations_bi}
-\end{figure}
-
-
-
 
 
 \end{document}
