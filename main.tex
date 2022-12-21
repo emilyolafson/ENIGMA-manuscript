@@ -190,40 +190,6 @@ Ridge regression models were trained and evaluated using a 5-fold nested cross-v
 To test whether lesion load and ChaCo biomarkers provide complementary information for predicting chronic motor outcomes, we evaluated the performance of several ensemble models that average predictions from different learners \cite{Hastie2001-or}. The idea of ensemble learning is to build a prediction model by combining the strengths of a collection of simpler base models. 
 
 whether performance would be improved by averaging predictions from multiple models, combining several imaging biomarker metrics alongside demographic features like age, sex, and days post stroke. A standard linear regression model was used to model the relationship between demographic information and motor impairment. 
-\begin{table}[h]
-\centering
-\caption{Styled LaTeX Table}
-\label{table:5}
-\begin{tabular}{rrrrr}
-\toprule
- &  & \multicolumn{2}{c}{Median performance} \\
- &  & Corr. (Std. dev.) & $R^2$ (Std. dev.) \\
-\midrule
-\multirow[t]{5}{*}{none} & M1 CST LL & 0.394 (0.006) & 0.152 (0.005) \\
- & Ipsi. SMATT LL & 0.435 (0.007) & 0.185 (0.007) \\
- & L/R SMATT LL & 0.439 (0.009) & 0.187 (0.009) \\
- & ChaCo (shen268) & 0.429 (0.017) & 0.180 (0.024) \\
- & ChaCo (fs86) & 0.441 (0.014) & 0.188 (0.012) \\
-\multirow[t]{5}{*}{demog} & M1 CST LL $\Plus$ demog. & 0.437 (0.006) & 0.167 (0.004) \\
- & Ipsi. SMATT LL $\Plus$ demog. & 0.462 (0.008) & 0.187 (0.005) \\
- & L/R SMATT LL $\Plus$ demog. & 0.464 (0.008) & 0.188 (0.006) \\
- & ChaCo (shen268) $\Plus$ demog. & 0.456 (0.017) & 0.177 (0.029) \\
- & ChaCo (fs86) $\Plus$ demog. & 0.461 (0.011) & 0.183 (0.007) \\
-\multirow[t]{6}{*}{chaco ll} & M1 CST LL $\Plus$ ChaCo (fs86) & 0.460 (0.007) & 0.199 (0.006) \\
- & Ipsi. SMATT LL $\Plus$ ChaCo (fs86) & 0.470 (0.008) & 0.213 (0.006) \\
- & L/R SMATT LL $\Plus$ ChaCo (fs86) & 0.469 (0.009) & 0.212 (0.007) \\
- & M1 CST LL $\Plus$ ChaCo (shen268) & 0.454 (0.008) & 0.197 (0.006) \\
- & Ipsi. SMATT LL $\Plus$ ChaCo (shen268) & 0.464 (0.009) & 0.208 (0.007) \\
- & L/R SMATT LL $\Plus$ ChaCo (shen268) & 0.463 (0.009) & 0.208 (0.007) \\
-\multirow[t]{6}{*}{chaco ll demog} & M1 CST LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.481 (0.007) & 0.196 (0.004) \\
- & Ipsi. SMATT LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.490 (0.007) & 0.208 (0.005) \\
- & L/R SMATT LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.492 (0.008) & 0.208 (0.006) \\
- & M1 CST LL $\Plus$ ChaCo  (shen268) $\Plus$ demog. & 0.478 (0.008) & 0.199 (0.005) \\
- & Ipsi. SMATT LL $\Plus$ ChaCo  (shen268) $\Plus$ demog. & 0.484 (0.010) & 0.208 (0.007) \\
- & L/R SMATT LL $\Plus$ ChaCo  (shen268) $\Plus$ demog. & 0.484 (0.010) & 0.208 (0.007) \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \begin{itemize}
 \item H1: Models including demographic information (age, sex, and days post stroke) alongside lesion data will perform better than models with lesion data or demographic data alone (i.e., variance explained from lesion data and demographic data is not redundant).
@@ -264,30 +230,33 @@ All twelve sensorimotor tracts had significant (?) regression coefficients, sugg
 \begin{tabular}{lrrrr}
 \toprule
  &  & \multicolumn{2}{c}{Median performance} \\
-Ensemble type &  Model name & Corr. (Std. dev.) & $R^2$ (Std. dev.) \\
+ Ensemble type & Model name & Corr. (Std. dev.) & $R^2$ (Std. dev.) \\
 \midrule
 \multirow[t]{5}{*}{None} & M1 CST LL & 0.394 (0.006) & 0.152 (0.005) \\
  & Ipsi. SMATT LL & 0.435 (0.007) & 0.185 (0.007) \\
  & L/R SMATT LL & 0.439 (0.009) & 0.187 (0.009) \\
- & ChaCo (shen268) & 0.431 (0.016) & 0.181 (0.027) \\
- & ChaCo (fs86) & 0.429 (0.014) & 0.179 (0.013) \\
- \arrayrulecolor{black!30}\midrule
-\multirow[t]{5}{*}{Demographics} & M1 CST LL $\Plus$ demog. & 0.436 (0.007) & 0.165 (0.005) \\
- & Ipsi. SMATT LL $\Plus$ demog. & 0.459 (0.006) & 0.186 (0.005) \\
- & L/R SMATT LL $\Plus$ demog. & 0.465 (0.009) & 0.189 (0.006) \\
- & ChaCo (shen268) $\Plus$ demog. & 0.457 (0.011) & 0.187 (0.010) \\
- & ChaCo (fs86) $\Plus$ demog. & 0.453 (0.010) & 0.181 (0.007) \\
- \arrayrulecolor{black!30}\midrule
-\multirow[t]{6}{*}{Lesion load} & M1 CST LL $\Plus$ ChaCo (fs86) & 0.454 (0.008) & 0.197 (0.007) \\
- plus ChaCo & Ipsi. SMATT LL $\Plus$ ChaCo (fs86) & 0.463 (0.009) & 0.206 (0.007) \\
- & L/R SMATT LL $\Plus$ ChaCo (fs86) & 0.463 (0.010) & 0.207 (0.009) \\
+ & ChaCo (shen268) & 0.429 (0.017) & 0.180 (0.024) \\
+ & ChaCo (fs86) & 0.441 (0.014) & 0.188 (0.012) \\
+   \arrayrulecolor{black!30}\midrule
+
+\multirow[t]{5}{*}{Demographics} & M1 CST LL $\Plus$ demog. & 0.437 (0.006) & 0.167 (0.004) \\
+ & Ipsi. SMATT LL $\Plus$ demog. & 0.462 (0.008) & 0.187 (0.005) \\
+ & L/R SMATT LL $\Plus$ demog. & 0.464 (0.008) & 0.188 (0.006) \\
+ & ChaCo (shen268) $\Plus$ demog. & 0.456 (0.017) & 0.177 (0.029) \\
+ & ChaCo (fs86) $\Plus$ demog. & 0.461 (0.011) & 0.183 (0.007) \\
+  \arrayrulecolor{black!30}\midrule
+
+\multirow[t]{6}{*}{Lesion load} & M1 CST LL $\Plus$ ChaCo (fs86) & 0.460 (0.007) & 0.199 (0.006) \\
+ plus ChaCo & Ipsi. SMATT LL $\Plus$ ChaCo (fs86) & 0.470 (0.008) & 0.213 (0.006) \\
+ & L/R SMATT LL $\Plus$ ChaCo (fs86) & 0.469 (0.009) & 0.212 (0.007) \\
  & M1 CST LL $\Plus$ ChaCo (shen268) & 0.454 (0.008) & 0.197 (0.006) \\
  & Ipsi. SMATT LL $\Plus$ ChaCo (shen268) & 0.464 (0.009) & 0.208 (0.007) \\
  & L/R SMATT LL $\Plus$ ChaCo (shen268) & 0.463 (0.009) & 0.208 (0.007) \\
- \arrayrulecolor{black!30}\midrule
-\multirow[t]{6}{*}{Lesion load}  & M1 CST LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.478 (0.007) & 0.196 (0.005) \\
- plus ChaCo & Ipsi. SMATT LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.483 (0.008) & 0.206 (0.006) \\
- plus demographics & L/R SMATT LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.485 (0.008) & 0.207 (0.006) \\
+  \arrayrulecolor{black!30}\midrule
+
+\multirow[t]{6}{*}{Lesion load} & M1 CST LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.481 (0.007) & 0.196 (0.004) \\
+ plus ChaCo & Ipsi. SMATT LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.490 (0.007) & 0.208 (0.005) \\
+ plus demographics & L/R SMATT LL $\Plus$ ChaCo  (fs86) $\Plus$ demog. & 0.492 (0.008) & 0.208 (0.006) \\
  & M1 CST LL $\Plus$ ChaCo  (shen268) $\Plus$ demog. & 0.478 (0.008) & 0.199 (0.005) \\
  & Ipsi. SMATT LL $\Plus$ ChaCo  (shen268) $\Plus$ demog. & 0.484 (0.010) & 0.208 (0.007) \\
  & L/R SMATT LL $\Plus$ ChaCo  (shen268) $\Plus$ demog. & 0.484 (0.010) & 0.208 (0.007) \\
