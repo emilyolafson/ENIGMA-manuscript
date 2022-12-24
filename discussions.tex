@@ -1,5 +1,77 @@
+\documentclass[10pt]{article}
 
-\subsection*{Predicting chronic motor scores from structural disconnection: CST lesion load}
+%---------------------------------------------------------------------
+\usepackage[a4paper, headsep=-4in,bindingoffset=0in,%
+left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm,%
+footskip=.25in]{geometry}
+\newcommand{\textBF}[1]{%
+    \pdfliteral direct {2 Tr 0.3 w} %the second factor is the boldness
+     #1%
+    \pdfliteral direct {0 Tr 0 w}%
+}
+\usepackage{multirow}
+\usepackage{soul}
+
+\newcommand{\beginsupplement}{%
+\setcounter{table}{0}
+\renewcommand{\thetable}{S\arabic{table}}%
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}%
+}
+
+\def\Plus{\texttt{+}}
+%\usepackage[english]{babel}   
+\usepackage[utf8]{inputenc}  
+\usepackage[font=scriptsize]{caption}
+\usepackage{tabularx}
+%\DeclareCaptionFont{6pt}{\fontsize{6pt}{6pt}\selectfont}
+\captionsetup[figure]{font={stretch=1}}  
+%\usepackage{sectsty}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{layout}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{mathptmx}
+
+\usepackage{booktabs}
+\usepackage{etoolbox}
+
+
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[backend=biber,style=apa,sorting=none]{biblatex}
+\addbibresource{paperpile.bib}
+%\pagenumbering{gobble}
+\pagenumbering{arabic}
+
+\graphicspath{{figs/}}
+\setlength{\topmargin}{-10pt}
+%\renewcommand{\baselinestretch}{1.5}
+
+\usepackage{indentfirst}
+\setlength{\parindent}{1cm}
+\usepackage[table]{xcolor}
+
+\setlength{\headsep}{1pt}
+%---------------------------------------------------------------------
+
+\begin{document} 
+\subsection*{Discussion}
+
+In this paper we compare lesion biomarkers of chronic motor impairment head-to-head in the largest sample of stroke subjects to date. 
+
+\subsubsection*{Why do ChaCo scores perform better than lesion load metrics?}
+
+Regions that are not related to hemiparesis may have predictive benefits. ChaCo scores represent the structural disconnection of all brain regions and thus have full coverage to capture statistical associations between lesion location and motor impairment across the entire brain. Thus, ChaCo scores may simply have sufficiently fine resolution 
+
+
+ChaCo scores are able to capture white matter and grey matter damage in one measurement, which may enable it to capture associations between grey matter damage and motor disruption that are not captured with lesion load metrics.
+
+
+
+\subsubsection*{}
 In \cite{Pineiro2000-dv} original CST mask paper; looked at cross sectional area of CST occupied by stroke and related it to motor score at 1 month, $r^2 = 0.82$.
 
 In \cite{Jang2008-ns} pontine infarct subjects (25) with CST damage (from DTI) in acute stage have worse chronic motor scores. 
@@ -29,3 +101,4 @@ In Rondina et al., 2017...
 In \cite{Rondina2016-ds} they show that theory-driven feature selection, including areas from the premotor/frontal areas, better predicts motor outcome than just looking at CST-related features. Voxels (lesion voxels) associated with chronic motor performance (via mass univariate voxel GLMs) not found in CST but in pre and post central gyrus.
 
 In \cite{Sperber2021-lw} and \cite{Bzdok2020-py} they discuss the difference between inference and prediction.  \cite{Sperber2021-lw} demonstrate that the areas that may be useful for prediction of motor deficits after stroke may not be clinically meaningful. Related to \cite{Mah2014-cb}, showing how patterns of damage from lesion-symptom mapping are biased/shifted due to vasculature.
+\end{document}
