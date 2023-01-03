@@ -184,7 +184,7 @@ Sensorimotor tract segmentations were obtained from the sensorimotor area tract 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\linewidth]{figures/SMATT.png}
+    \includegraphics[width=0.7\linewidth]{figures/SMATT.png}
     \caption{Sensorimotor tract template atlas (SMATT), displaying only right hemisphere tracts. Includes supplementary motor area (SMA), dorsal premotor cortex (PMd), ventral premotor cortex (PMv), pre-supplementary motor area (pre-SMA), primary sensory cortex (S1),  and primary motor cortex (M1)}
     \label{smatt}
 \end{figure}
@@ -311,8 +311,8 @@ plus demographics & Ipsi. SMATT LL $\Plus$ demog. & 0.457 (0.006) & 0.199 (0.004
 \begin{figure}[htp]
 \centering
 \includegraphics[width=1\linewidth]{figures/Analysis1.png}
-\caption{Summary of model performance metrics across all models tested and feature weights (regression coefficients) for best-performing models.  \textbf{A.} and \textbf{B.} Distribution of model performance (mean Pearson correlation/$R^2$ across 5 outer folds for 100 permutations of the data).  Boxplots are colored abritrarily for clarity and are plotted in similarly-colored pairs to indicate performance using the full training set ("acute $\Plus$  chronic") versus only chronic subjects ("Chronic only"). The boxes extend from the lower to upper quartile values of the data, with a line at the median. Whiskers represent the range of the data from [Q1-1.5*IQR, Q3+1.5*IQR].
-Average feature weights for regions that were selected in at least half of the models (i.e., were included in the model in at least 250/500 outer folds). \textbf{C.} Sensorimotor area tract template feature importance for analysis 1. Includes primary motor cortex (M1), dorsal premotor cortex (PMd), ventral premotor cortex (PMv), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), primary sensory cortex (S1).}
+\caption{Summary of model performance metrics across all models tested and feature weights (regression coefficients) for best-performing models.  \textbf{A.} and \textbf{B.} Distribution of model performance (mean Pearson correlation/$R^2$ across 5 outer folds for 100 permutations of the data).  Boxplots are colored abritrarily for clarity and are plotted in similarly-colored pairs to indicate performance using the full training data ("Acute $\Plus$  chronic") versus only chronic data ("Chronic only"). The boxes extend from the lower to upper quartile values of the data, with a line at the median. Whiskers represent the range of the data from [Q1-1.5*IQR, Q3+1.5*IQR].
+\textbf{C.} and \textbf{D.} Average feature weights for the top 2 best-performing models (fs86-ChaCo without feature selection, shen268-ChaCo with feature selection, respectively). For fs86-ChaCo (left), displaying mean regression coefficients across 100 permutations. For shen268-ChaCo (right), displaying mean regression coefficients for regions that were selected in at least half of the models (i.e., were included in the model in at least 250/500 outer folds). }
 \label{analysis1}
 \end{figure}
 
