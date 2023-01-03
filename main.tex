@@ -205,8 +205,6 @@ Lesion masks in $1mm^3$ MNI v6 space were processed with the Network Modificatio
 
 Two flavors of models using ChaCo scores were assessed. First, ridge regression models were assessed, as described above, with whole-brain regional ChaCo scores as inputs (86 features for the fs86 atlas, 268 features for the shen268 atlas). Second, a filter-based feature selection step was added to ridge regression models to obtain a subset of features that were the most useful for prediction (\cite{Hall1999-qr, Pudjihartono2022-zg}). We mixed hyperparameter tuning and feature selection in the same step, considering the feature set as a hyperparameter itself. Features were ranked by their their association with the outcome variable (p-value from univariate correlation). In the inner loop, both the amount of regularization on regression coefficients ($\lambda$) and the number of features to retain in the feature selection step ($k$) were selected via. grid search.
 
-\subsubsection*{Visualization of feature weights}
-
 
 \subsubsection*{Ensemble models}
 We tested whether performance would be improved by combining several imaging biomarker metrics and/or demographic features like age, sex, and days post stroke, we used ensemble models that average predictions from different learners \cite{Hastie2001-or}. The idea of ensemble learning is to build a single prediction model by combining the strengths of a collection of simpler base models. 
@@ -316,6 +314,17 @@ plus demographics & Ipsi. SMATT LL $\Plus$ demog. & 0.457 (0.006) & 0.199 (0.004
 \label{analysis1}
 \end{figure}
 
+
+
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=1\linewidth]{figures/analysis_1_matrix_figure_colors.png}
+\caption{Differences in model performance for prediction of normalized motor scores. Difference in explained variance between pairs of models using different lesion metrics and different training data. Model differences were calculated by averaging the difference in explained variance for each of the 100 train/test splits. Significance of differences in explained variance were evaluated using exact tests for differences. $***$ denotes corrected $p < 0.001$, $**$ denotes corrected $p < 0.01$, $*$ denotes corrected $p < 0.05$ after Bonferroni correction. A positive difference value indicates that the model on the y-axis (vertical) has a greater explained variance than the model on the x-axis (horizontal).
+ }
+\label{analysis1}
+\end{figure}
+
 \begin{figure}[htp]
 \centering
 \includegraphics[width=1\linewidth]{figures/Analysis2.png}
@@ -378,6 +387,30 @@ plus demographics & Ipsi. SMATT LL $\Plus$ demog. & 0.457 (0.006) & 0.199 (0.004
 \includegraphics[width=1\linewidth]{figures/SMATT_bi_scatterplts.png}
 \caption{Correlations between lesion load calculated for each left and right hemisphere tract in the sensorimotor area tract template atlas.}
 \label{smatt_pairwise_correlations_bi}
+\end{figure}
+
+
+\begin{figure}
+\begin{subfigure}{0.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/m1_lesionload.png}
+  \caption{M1-CST lesion load distribution.}
+  \label{fig:sfig1}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/all_lesionload.png}
+  \caption{Ipsilesional sensorimotor tract template (SMATT) lesion load distribution.}
+  \label{fig:sfig2}
+\end{subfigure}
+\begin{subfigure}{1\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{figures/.png}
+  \caption{Left and right hemisphere sensorimotor tract template (SMATT) lesion load distribution.}
+  \label{fig:sfig2}
+\end{subfigure}
+\caption{Distribution of lesion load variables for chronic subjects.}
+\label{lesion_load_dist}
 \end{figure}
 
 
