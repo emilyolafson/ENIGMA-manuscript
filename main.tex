@@ -189,7 +189,7 @@ Ridge regression models were used to predict chronic motor deficits from ipsiles
 
 
 \subsubsection*{Regional change in connectivity (ChaCo) models}
-Lesion masks in $1mm^3$ MNI v6 space were processed with the Network Modification Tool (NeMo Tool) v2 pipeline (\cite{Kuceyeski2013-nk}) (https://github.com/kjamison/nemo for more detailed information). Given a lesion mask, the NeMo tool produces outputs that reflect the impact of the lesion on the white matter tracts connecting brain regions. The NeMo tool identifies every white matter streamline that intersects with a lesion and determines the brain regions at the endpoints of those streamlines, whose structural connections are putatively disrupted (Figure \ref{nemo}). The NeMo tool uses a reference structural connectome dataset of 420 unrelated subjects from the Human Connectome Project (HCP) Young Adult database. Structural connectivity for HCP subjects was obtained using deterministic tractography (SD stream) with dynamic seeding, with additional SIFT2 weighting for each of 5 million streamlines (\cite{Smith2015-eb}). Regional change in connectivity (ChaCo) scores, or the ratio of the number of disrupted streamlines divided by the total number of streamlines for each region, were calculated for all grey matter regions. Regional ChaCo scores from two different altases were compared: the 86-region Desikan-Killiany Atlas (68 cortical regions $\Plus$ 18 subcortical regions, excluding brainstem) from FreeSurfer ("fs86" for short), which contains coarse anatomically parcellated regions (\cite{Desikan2006-vf,Fischl2002-lb}), and the 268-region Shen atlas ("shen268" for short), which contains more fine-grained functionally parcellated cortical and subcortical regions (\cite{Shen2013-zn}).
+Lesion masks in $1mm^3$ MNI v6 space were processed with the Network Modification Tool (NeMo Tool) v2 pipeline (\cite{Kuceyeski2013-nk}) (https://github.com/kjamison/nemo for more detailed information). Given a lesion mask, the NeMo tool produces outputs that reflect the impact of the lesion on the white matter tracts connecting brain regions. The NeMo tool identifies every white matter streamline that intersects with a lesion and determines the brain regions at the endpoints of those streamlines, whose structural connections are putatively disrupted (Figure \ref{nemo}). The NeMo tool uses a reference structural connectome dataset of 420 unrelated subjects from the Human Connectome Project (HCP) Young Adult database. Structural connectivity for HCP subjects was obtained using deterministic tractography (SD stream) with dynamic seeding, with additional SIFT2 weighting for each of 5 million streamlines (\cite{Smith2015-eb}). Regional change in connectivity (ChaCo) scores, or the ratio of the number of disrupted streamlines divided by the total number of streamlines for each region, were calculated for all grey matter regions (see Figure \ref{sumchaco_acutechronic} for distribution of ChaCo scores across subjects). Regional ChaCo scores from two different altases were compared: the 86-region Desikan-Killiany Atlas (68 cortical regions $\Plus$ 18 subcortical regions, excluding brainstem) from FreeSurfer ("fs86" for short), which contains coarse anatomically parcellated regions (\cite{Desikan2006-vf,Fischl2002-lb}), and the 268-region Shen atlas ("shen268" for short), which contains more fine-grained functionally parcellated cortical and subcortical regions (\cite{Shen2013-zn}).
 
 \begin{figure}[ht]
   \centering
@@ -214,10 +214,9 @@ The relative out-of-sample performances of the models can be found in Figure \re
 
 The models that best predicted chronic motor scores in unseen subjects were a ridge regression model with correlation-based feature selection using regional ChaCo scores from the shen268-region atlas, using acute and chronic data for training (correlation = 0.467, $R^2$ = 0.210), and a ridge regression model without feature selection using regional ChaCo scores from the 86-region FreeSurfer atlas, using acute and chronic data for training (correlation = 0.458, $R^2$ = 0.204, n.d. between models). Models M1 CST-LL, SMATT-LL, and sLNM-LL performed worse on average than ChaCo models, with SMATT-LL models using only chronic data for training performing the best among them (correlation = 0.446, $R^2$ = 0.188) and M1 CST-LL models performing the worst (correlation = 0.395, $R^2$ = 0.133, n.d. between chronic and mixed training data). 
 
-The features selected in the Shen268 ChaCo models \ref{heatmap_shen}
+Features selected in at least 250/500 outer folds of the ChaCo models are shown in (Figure \ref{analysis1}D and \ref{analysis1_posweights} for negative and positive weights, respectively).
 
-
-
+On average, around 110 features were chosen for the shen268 ChaCo models (Figure \ref{lambda_kappa}). A hierarchically-clustered heatmap of the correlation matrix of the selected features (Figure \ref{heatmap_shen}) suggests that while many of the selected features are clustered and possibly redundant (i.e., there is high inter-feature correlation across subjects), there are several standalone regions that are consistently incorporated into the model. 
 
 \newpage 
 \newpage
@@ -428,8 +427,8 @@ r053 & 2 & 0 & 0 & 2 & 0 \\
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\linewidth]{figures/acutechronic_sumchaco.png}
-\caption{Sum of ChaCo scores for then shen268 atlas for acute (\textbf{A}) and chronic (\textbf{B}) subjects.}
-\label{smatt_pairwise_correlations}
+\caption{Sum of regional change in connectivity (ChaCo) scores across subjects. Sum of ChaCo scores parcellated with the FreeSurfer 86-region atlas for acute (\textbf{A}) and chronic (\textbf{B}) subjects and for the Shen 268-region atlas for acute (\textbf{C}) and chronic (\textbf{D}) subjects.}
+\label{sumchaco_acutechronic}
 \end{figure}
 
 
@@ -455,13 +454,15 @@ r053 & 2 & 0 & 0 & 2 & 0 \\
   \label{fig:sfig2}
 \end{subfigure}
 \caption{Distribution of number of features selected in ChaCo models (fs86 left, shen268 right) vs. amount of regularization.}
-\label{lesion_load_dist}
+\label{lambda_kappa}
 \end{figure}
+
+
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1\linewidth]{figures/Analysis1_posweights.png}
 \caption{Positive regression coefficients for the top two best performing models (ChaCo-fs86 without feature selection, shen268 with feature selection).}
-\label{smatt_pairwise_correlations_bi}
+\label{analysis1_posweights}
 \end{figure}
 
 
