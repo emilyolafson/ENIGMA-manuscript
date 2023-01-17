@@ -84,7 +84,7 @@ Predictive models to date have used input features on the basis of their involve
 Damage to structures in the somatomotor system have been used as inputs to predictive models because of their causal relationship to motor function; integrity of the CST is necessary for voluntary control of the limbs. However, in context of prediction, where we simply wish to exploit associations between the input data and motor deficits, limiting input features to those in the motor system may curtail predictive accuracy if lesion-deficit associations can also be found outside of those areas. In stroke, structures outside of the motor system may bear predictive value if damage to those structures is consistently associated with motor deficits. Such a phenomenon can occur due to the superposition of the brain's vasculature and spatial maps of motor functions (\cite{Mah2014-cb, Sperber2020-kp,Kasties2021-rm, Calesella2021-kp}). This phenomenon has been well-documented in the field of lesion-deficit inference
 (\cite{Mah2014-cb, Sperber2020-kp,Kasties2021-rm, Calesella2021-kp}) and points to the idea that damage to an area (which may itself be outside of the motor system) may be more consistently associated with deficits than damage to an area inside the motor system, and thus may be a more sensitive biomarker of motor deficits. In other words, we may want to  discover useful lesion-deficit associations instead of assuming that pre-established structure-function relationships will have maximal predictive value.
 
-\cite{Bowren2022-rs} discover such associations using lesion-behavior mapping, a technique to identify statistical associations between lesion location anatomy and behavioural deficits. They seed structural connectivity from regions of peak association and use damage to those structural connectivity maps as input to predictive models, in a new cohort. Similarly, \cite{Sperber2021-lw} find that damage to regions identified from lesion-behavior mapping is a more sensitive biomarker of motor deficits than damage to motor areas. This prior work suggests that data-driven feature selection enhances predictive performance. However, using inferential statistics to identify features (i.e. from associative lesion-behavior mapping methods) may fail to identify features that are predictive, i.e., are useful for estimating motor deficits in new subjects (\cite{Bzdok2020-py}).
+\cite{Bowren2022-rs} discover such associations using lesion-behavior mapping, a technique to identify statistical associations between lesion location anatomy and behavioural deficits. They seed structural connectivity from regions of peak association and use damage to those structural connectivity maps as input to predictive models, in a new cohort. Similarly, \cite{Sperber2021-lw} find that damage to regions identified from lesion-behavior mapping is a more sensitive biomarker of motor deficits than damage to motor areas. This prior work suggests that data-driven feature selection enhances predictive performance. However, using inferential statistics to identify features (i.e. from associative lesion-behavior mapping methods) may fail to identify features that are predictive, i.e., are useful for estimating motor deficits in new subjects (\cite{Bzdok2020-py}), particularly in small datasets (i.e. less than 1000 subjects) with noise and multicollinearity.
 
 Machine learning models that select features in a data-driven way in order top optimize out-of-sample performance typically require larger sample sizes that, until recently, been unavailable in stroke research (\cite{Bzdok2020-py}). To our knowledge, only one study to date has used data-driven feature selection to predict post-stroke motor deficits from imaging data \cite{Kasties2021-rm}. Kasties and colleagues perform feature selection with several feature representation strategies (including voxelwise, regional, and lesion-anatomical features) for modelling acute motor impairment to predict acute impairment, albeit with a small sample size (N=100). 
 
@@ -216,7 +216,9 @@ The models that best predicted chronic motor scores in unseen subjects were a ri
 
 Features selected in at least 250/500 outer folds of the ChaCo models are shown in (Figure \ref{analysis1}D and \ref{analysis1_posweights} for negative and positive weights, respectively).
 
-On average, around 110 features were chosen for the shen268 ChaCo models (Figure \ref{lambda_kappa}). A hierarchically-clustered heatmap of the correlation matrix of the selected features (Figure \ref{heatmap_shen}) suggests that while many of the selected features are clustered and possibly redundant (i.e., there is high inter-feature correlation across subjects), there are several standalone regions that are consistently incorporated into the model. 
+On average, around 110 features were chosen for the shen268 ChaCo models (Figure \ref{lambda_kappa}). A hierarchically-clustered heatmap of the correlation matrix of the selected features (Figure \ref{heatmap_shen}) suggests that many of the selected features are clustered (i.e., high inter-feature correlation across subjects), and that there are several standalone regions that were consistently incorporated into the model. 
+
+
 
 \newpage 
 \newpage
@@ -429,6 +431,14 @@ r053 & 2 & 0 & 0 & 2 & 0 \\
 \includegraphics[width=0.8\linewidth]{figures/acutechronic_sumchaco.png}
 \caption{Sum of regional change in connectivity (ChaCo) scores across subjects. Sum of ChaCo scores parcellated with the FreeSurfer 86-region atlas for acute (\textbf{A}) and chronic (\textbf{B}) subjects and for the Shen 268-region atlas for acute (\textbf{C}) and chronic (\textbf{D}) subjects.}
 \label{sumchaco_acutechronic}
+\end{figure}
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{figures/correlation_chaco_outcome.png}
+\caption{Univariate correlation between regional ChaCo scores and normalized motor scores (chronic subjects).}
+\label{corr_chaco_outcome}
 \end{figure}
 
 
