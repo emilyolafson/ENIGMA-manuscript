@@ -217,27 +217,29 @@ Differences in performance between models were assessed using two-sided Mann-Whi
 All analysis scripts that generated the results of the present study are readily accessible and open for reuse (https://github.com/emilyolafson/lesion$\_$predictions). The script can be easily modified to predict any outcome score from ChaCo scores/lesion load data.
 
 \section{Results}
-The relative out-of-sample performances of the models can be found in Figure \ref{analysis1}A,B. M1 CST-LL, SMATT-LL, and sLNM-LL performed worse on average than ChaCo models, with Left/Right SMATT-LL models performing the best among them (correlation = 0.446, $R^2$ = 0.188) and M1 CST-LL models performing the worst (correlation = 0.395, $R^2$ = 0.133, n.d. between chronic and mixed training data). 
+
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=1\linewidth]{figures/Analysis1.png}
 \caption{Summary of model performance metrics across all models tested and feature weights (regression coefficients) for best-performing models.  \textbf{A.} and \textbf{B.} Distribution of model performance (mean Pearson correlation/$R^2$ across 5 outer folds for 100 permutations of the data).  Boxplots are colored abritrarily for clarity and are plotted in similarly-colored pairs to indicate performance using the full training data ("Acute $\Plus$  chronic") versus only chronic data ("Chronic only"). The boxes extend from the lower to upper quartile values of the data, with a line at the median. Whiskers represent the range of the data from [Q1-1.5*IQR, Q3+1.5*IQR].
-\textbf{C.} and \textbf{D.} Mean feature weights for the top 2 best-performing models (fs86-ChaCo without feature selection, shen268-ChaCo with feature selection, respectively). For fs86-ChaCo (left), displaying mean regression coefficients across 100 permutations. For shen268-ChaCo (right), displaying mean regression coefficients for regions that were selected in at least 99$\%$ of the models (i.e., were included in the model in at least 495/500 outer folds). }
+\textbf{C.} and \textbf{D.} Mean feature weights for the top 2 best-performing models (ChaCo (fs86) without feature selection, ChaCo (shen268) with feature selection, respectively). For fs86-ChaCo (left), displaying mean regression coefficients across 100 permutations. For ChaCo (shen268) (right), displaying median regression coefficients of regions that were selected in at least 99$\%$ of outer folds (i.e., for regions that were included in the model in at least 495/500 outer folds, means beta coefficients were calculated across 5 outer folds, and the median value across 100 permutations is plotted). }
 \label{analysis1}
 \end{figure}
 
+The relative out-of-sample performances of the models can be found in Figure \ref{analysis1}A,B. In general, M1 CST-LL, SMATT-LL, and sLNM-LL performed worse on average than ChaCo models, with Left/Right SMATT-LL models performing the best among them (correlation = 0.446, $R^2$ = 0.188) and M1 CST-LL models performing the worst (correlation = 0.395, $R^2$ = 0.133, n.d. between chronic and mixed training data). 
 
+Regional ChaCo scores from the 268-region Shen atlas best predicted chronic motor scores in unseen subjects. In particular, the best performance with this model was obtained using acute and chronic data for training as well as a feature selection step to identify a subset of relevant features (correlation = 0.467, $R^2$ = 0.210). The performance of this model was on par with a model using regional ChaCo scores from the 86-region FreeSurfer atlas, that also used acute and chronic data for training (correlation = 0.458, $R^2$ = 0.204, n.d. between models). Thus, the effect of feature selection in ChaCo models depended on the atlas: for the 86-region FreeSurfer atlas, feature selection reduced model performance, whereas for 268-region Shen atlas, model selection improved it. 
 
-The effect of feature selection in ChaCo models depended on the atlas: for fs86, feature selection reduced model performance, whereas for shen268, model selection improved it. In general, including additional acute subjects in the training data improved performance of the models, despite the difference in motor scores between acute and chronic cohorts. 
+Beta coefficients for ChaCo models are shown in (Figure \ref{analysis1}C, D), reflecting median beta coefficients for regions selected in least 495/500 outer folds of the 268-region ChaCo models. There were several spatial similarities in the pattern of feature weights for the 86-region ChaCo model and 268-region ChaCo model with feature selection. For both atlases, negative model weights are assigned to superior portions of left and right motor areas, as well as in subcortical structures like the putamen, pallidum, and thalamus, whereas positive weights are assigned to frontal and parietal areas. In then 268-region ChaCo models, more regions in the right hemisphere are consistently included in the model than the left hemisphere. 
 
-Regional ChaCo scores from the shen268 atlas best predicted chronic motor scores in unseen subjects, using acute and chronic data for training and a feature selection step to identify a subset of relevant features (correlation = 0.467, $R^2$ = 0.210), and were on par with regional ChaCo scores from the 86-region FreeSurfer atlas, also acute and chronic data for training (correlation = 0.458, $R^2$ = 0.204, n.d. between models). 
+For ChaCo models using the shen 268-region atlas with feature selection, on average 110 features were selected (Supplementary Figure \ref{lambda_kappa}). A hierarchically-clustered heatmap of the correlation matrix of the selected features (Supplementary Figure \ref{heatmap_shen_negweights}) shows that many of the selected features are clustered (i.e., high correlation in ChaCo scores across subjects), and are frequently damaged together. Additionally, ChaCo scores of regions with positive and negative regression weights were positively correlated across subjects, despite these features having opposite relationships to motor deficits (Supplementary Figure \ref{heatmap_shen_pos_vs_negative}). For ChaCo models using the FreeSurfer 86-region atlas with feature selection, in the majority of cross-validation folds, all 86 regions were selected in the model. 
 
-Beta coefficients for ChaCo models are shown in (Figure \ref{analysis1}C, D) (reflecting features selected in least 495/500 outer folds of the shen268 models). There were several similarities in the pattern of feature weights in the fs86 ChaCo model and shen268 ChaCo model with feature selection. For both atlases, negative model weights are assigned to superior portions of left and right motor areas, as well as in subcortical structures like the putamen, pallidum, and thalamus, whereas positive weights are assigned to frontal and parietal areas. In then shen268 models, more regions in the right hemisphere are consistently included in the model.
+Including additional acute subjects in the training data improved model performance for Left/right SMATT-LL model and for ChaCo models. However, performance remained the same or was reduced for M1-CST-LL models, ipsilesional SMATT-LL models and sLNM models.
 
-In the shen268 ChaCo models with feature selection, on average, 110 features were selected (Supplementary Figure \ref{lambda_kappa}). A hierarchically-clustered heatmap of the correlation matrix of the selected features (Supplementary Figure \ref{heatmap_shen_negweights}) shows that many of the selected features are clustered (i.e., high correlation in damage across subjects), reflecting some degree of redundancy in the variables selected. Additionally, ChaCo scores of regions with positive and negative regression weights were positively correlated across subjects, despite these features having opposite relationships to motor deficits (Supplementary Figure \ref{heatmap_shen_pos_vs_negative}). Although two regions may have strong lesion-anatomical relationships (i.e., are adjacent and therefore usually damaged together), they have distinct relationships to motor deficits. 
+Generally, ensemble models performed better than individual models. In particular, including demographic information marginally increased or did not change prediction accuracy for all models tested, with an average increase in $R^2$ of 0.009, or $0.9\%$. Combining ChaCo models with lesion load models improved performance (L/R SMATT-LL + ChaCo (shen268) w/ feat. select $R^2 = 0.233$) above either alone (L/R SMATT-LL $R^2=0.188$, ChaCo (shen268) w/ feat. select, $R^2=0.210$)
 
-Curiously, in the majority of cross-validation folds, all 86 regions were selected in the model. This may reflect something about why the performance was worse with feature selection and worse than shen268 in general: perhaps more features are needed to model the relationship.
+Model weights for the best-performing models of each type are publicly available on GitHub. 
 
 
 \newpage 
@@ -252,32 +254,32 @@ Curiously, in the majority of cross-validation folds, all 86 regions were select
 Ensemble type & Model name & Correlation & $R^2$  \\
 \midrule
 \multirow[t]{8}{*}{None (Lesion load or} & M1 CST-LL & 0.395 & 0.133 \\
- ChaCo only)& Ipsi. CST-LL & 0.430 & 0.174 \\
- & L/R CST-LL & 0.446 & 0.188 \\
+ ChaCo only)& Ipsi. SMATT-LL & 0.430 & 0.174 \\
+ & L/R SMATT-LL & 0.446 & 0.188 \\
  & sLNM-LL & 0.427 & 0.165 \\
  & ChaCo (fs86) & 0.458 & 0.204 \\
  & ChaCo (shen268) & 0.456 & 0.199 \\
  & ChaCo (fs86) (feat. select.) & 0.447 & 0.191 \\
  & ChaCo (shen268) (feat. select.) & 0.467 & 0.210 \\
 \multirow[t]{16}{*}{Lesion load $\Plus$} & M1 CST-LL + ChaCo (fs86subj) & 0.461 & 0.210 \\
- ChaCo & M1 CST-LL + ChaCo (shen268) & 0.463 & 0.211 \\
- & Ipsi. CST-LL + ChaCo (fs86subj) & 0.478 & 0.226 \\
- & Ipsi. CST-LL + ChaCo (shen268) & 0.481 & 0.228 \\
- & L/R CST-LL + ChaCo (fs86subj) & 0.481 & 0.227 \\
- & L/R CST-LL + ChaCo (shen268) & 0.481 & 0.228 \\
+ ChaCo & M1 SMATT-LL + ChaCo (shen268) & 0.463 & 0.211 \\
+ & Ipsi. SMATT-LL + ChaCo (fs86subj) & 0.478 & 0.226 \\
+ & Ipsi. SMATT-LL + ChaCo (shen268) & 0.481 & 0.228 \\
+ & L/R SMATT-LL + ChaCo (fs86subj) & 0.481 & 0.227 \\
+ & L/R SMATT-LL + ChaCo (shen268) & 0.481 & 0.228 \\
  & sLNM-LL + ChaCo (fs86subj) & 0.468 & 0.214 \\
  & sLNM-LL + ChaCo (shen268) & 0.472 & 0.217 \\
  & M1 CST-LL + ChaCo (fs86subj) (feat. select.) & 0.458 & 0.206 \\
  & M1 CST-LL + ChaCo (shen268) (feat. select.) & 0.469 & 0.217 \\
- & Ipsi. CST-LL + ChaCo (fs86subj) (feat. select.) & 0.476 & 0.223 \\
- & Ipsi. CST-LL + ChaCo (shen268) (feat. select.) & 0.485 & 0.233 \\
- & L/R CST-LL + ChaCo (fs86subj) (feat. select.) & 0.475 & 0.222 \\
- & L/R CST-LL + ChaCo (shen268) (feat. select.) & 0.486 & 0.232 \\
+ & Ipsi. SMATT-LL + ChaCo (fs86subj) (feat. select.) & 0.476 & 0.223 \\
+ & Ipsi. SMATT-LL + ChaCo (shen268) (feat. select.) & 0.485 & 0.233 \\
+ & L/R SMATT-LL + ChaCo (fs86subj) (feat. select.) & 0.475 & 0.222 \\
+ & L/R SMATT-LL + ChaCo (shen268) (feat. select.) & 0.486 & 0.232 \\
  & sLNM-LL + ChaCo (fs86subj) (feat. select.) & 0.462 & 0.208 \\
  & sLNM-LL + ChaCo (shen268) (feat. select.) & 0.474 & 0.222 \\
 \multirow[t]{8}{*}{Demographics} & M1 CST-LL + demog. & 0.424 & 0.173 \\
- & Ipsi. CST-LL + demog. & 0.457 & 0.199 \\
- & L/R CST-LL + demog. & 0.462 & 0.203 \\
+ & Ipsi. SMATT-LL + demog. & 0.457 & 0.199 \\
+ & L/R SMATT-LL + demog. & 0.462 & 0.203 \\
  & sLNM-LL + demog. & 0.452 & 0.191 \\
  & ChaCo (fs86) + demog & 0.471 & 0.203 \\
  & ChaCo (shen268) + demog & 0.468 & 0.204 \\
@@ -285,18 +287,18 @@ Ensemble type & Model name & Correlation & $R^2$  \\
  & ChaCo (shen268) (feat. select.) + demog & 0.481 & 0.215 \\
 \multirow[t]{16}{*}{Lesion load $\Plus$} & M1 CST-LL + ChaCo (fs86subj) + demog. & 0.476 & 0.214 \\
  ChaCo $\Plus$ & M1 CST-LL + ChaCo (shen268) + demog. & 0.477 & 0.216 \\
- Demographics & Ipsi. CST-LL + ChaCo (fs86subj) + demog. & 0.492 & 0.230 \\
- & Ipsi. CST-LL + ChaCo (shen268) + demog. & 0.495 & 0.232 \\
- & L/R CST-LL + ChaCo (fs86subj) + demog. & 0.494 & 0.231 \\
- & L/R CST-LL + ChaCo (shen268) + demog. & 0.494 & 0.232 \\
+ Demographics & Ipsi. SMATT-LL + ChaCo (fs86subj) + demog. & 0.492 & 0.230 \\
+ & Ipsi. SMATT-LL + ChaCo (shen268) + demog. & 0.495 & 0.232 \\
+ & L/R SMATT-LL + ChaCo (fs86subj) + demog. & 0.494 & 0.231 \\
+ & L/R SMATT-LL + ChaCo (shen268) + demog. & 0.494 & 0.232 \\
  & sLNM-LL + ChaCo (fs86subj) + demog. & 0.484 & 0.222 \\
  & sLNM-LL + ChaCo (shen268) + demog. & 0.487 & 0.224 \\
  & M1 CST-LL + ChaCo (fs86subj) (feat. select.) + demog. & 0.472 & 0.212 \\
  & M1 CST-LL + ChaCo (shen268) (feat. select.) + demog. & 0.482 & 0.222 \\
- & Ipsi. CST-LL + ChaCo (fs86subj) (feat. select.) + demog. & 0.490 & 0.228 \\
- & Ipsi. CST-LL + ChaCo (shen268) (feat. select.) + demog. & 0.498 & 0.237 \\
- & L/R CST-LL + ChaCo (fs86subj) (feat. select.) + demog. & 0.490 & 0.229 \\
- & L/R CST-LL + ChaCo (shen268) (feat. select.) + demog. & 0.499 & 0.237 \\
+ & Ipsi. SMATT-LL + ChaCo (fs86subj) (feat. select.) + demog. & 0.490 & 0.228 \\
+ & Ipsi. SMATT-LL + ChaCo (shen268) (feat. select.) + demog. & 0.498 & 0.237 \\
+ & L/R SMATT-LL + ChaCo (fs86subj) (feat. select.) + demog. & 0.490 & 0.229 \\
+ & L/R SMATT-LL + ChaCo (shen268) (feat. select.) + demog. & 0.499 & 0.237 \\
  & sLNM-LL + ChaCo (fs86subj) (feat. select.) + demog. & 0.479 & 0.218 \\
  & sLNM-LL + ChaCo (shen268) (feat. select.) + demog. & 0.492 & 0.230 \\
  
@@ -328,31 +330,23 @@ Ensemble type & Model name & Correlation & $R^2$  \\
 \end{figure}
 
 \section{Discussion}
-In this study, we assessed the relative predictive performance of several lesion metrics on the same large imaging dataset. We found that modelling lesion damage using regional ChaCo scores and using correlation-based feature selection best predicted chronic motor scores. Models using features derived from multivariate voxelwise lesion-behavior modelling performed worse than more basic models using damage to parcellations of the descending corticospinal tract. Finally, we saw that combining several lesion metrics using ensemble modelling improved prediction performance, and using acute stroke data to train models for prediction of chronic scores improved prediction performance. 
+In this study, we assessed the relative predictive performance of several lesion metrics on the same large imaging dataset. We found that modelling lesion damage using regional ChaCo scores and using correlation-based feature selection best predicted chronic motor scores. Models using features derived from multivariate voxelwise lesion-behavior modelling performed worse than more basic models using damage to parcellations of the descending corticospinal tract. Finally, we saw that combining several lesion metrics using ensemble modelling improved prediction performance, and that using acute stroke data to train models for prediction of chronic scores improved prediction performance. 
 
-This study confirms previous studies that M1-CST-LL does not capture enough variance to predict chronic motor outcomes in wide range of lesion topographies (\cite{Rondina2017-ij, Park2016-te, Ito2022-em, Boyd2017-gs}), although few studies have directly compared the out-of-sample performance of M1-CST-LL against more complex metrics. 
+This study supports previous results that show that M1-CST-LL alone does not capture enough variance to predict chronic motor outcomes in wide range of lesion topographies (\cite{Rondina2017-ij, Park2016-te, Ito2022-em, Boyd2017-gs}), although few studies have directly compared the out-of-sample performance of M1-CST-LL against more complex metrics like those assessed in this paper. Corticospinal projection tracts consist of fibers originating not just from M1, but from higher order motor areas in the frontal and parietal lobes \cite{Galea1994-yi}) that have been implicated in motor planning and execution (\cite{Ball1999-yo}. Damage to descending fibers from these areas has been associated with motor deficits after stroke (\cite{Ito2022-em, Riley2011-xo}) and may explain additional variance in chronic motor outcome that is not captured by damage to M1 alone. 
 
-Models using ChaCo scores performed better than M1-CST-LL and SMATT-LL models, particularly when feature selection was employed. ChaCo scores are able to capture white matter and grey matter damage in one measurement (\cite{Kuceyeski2013-nk}), which may enable them to capture relevant associations between grey matter damage and motor disruption (\cite{Rondina2016-ds}) that are not captured with lesion load metrics of tract damage.
+Models using ChaCo scores performed better than M1-CST-LL and SMATT-LL models, particularly when feature selection was employed. ChaCo scores can capture white matter and grey matter damage in one measurement (\cite{Kuceyeski2013-nk}), which may enable them to capture relevant associations between grey matter damage and motor deficits (\cite{Rondina2016-ds}) that are not captured with lesion load metrics of tract damage.
 
-Further, feature selection only improved model performance for ChaCo scores of the 268-region Shen atlas. Two aspects of this model likely contributed to its success: first, correlation-based feature selection identified patches of correlated damage (hence the observed clustering in the correlation matrix of selected predictors) (discussions on patch size: \cite{Pustina2018-xv, Sperber2020-kp}). Second, the small size of parcels in the 268-region atlas allowed for preservation of signal in relevant individual gray matter regions. This preserved, unique signal in individual regions can also be inferred from the correlation matrix of selected predictors, where several regions are consistently incorporated into the model but have low correlation with other selected regions. 
+The best performance across all models tested was obtained using feature selection on ChaCo scores of the 268-region Shen atlas. Further investigation into the features that were most consistently selected can give insight into the strength of the model. Correlation-based feature selection is known to choose redundant features (\cite{Guyon2003-kj})). Indeed, damage to many selected regions is highly correlated, suggesting that information from these regions is somewhat redundant. Does this mean that our model is suboptimal, and that fewer features are actually necessary for good predictions? No; in the context of lesion-deficit modelling, damage to adjacent regions can be highly correlated because they are supplied by the same vascular territory, and a stroke in that artery will cause damage to both areas (\cite{Mah2014-cb, Sperber2020-kp}). One may therefore expect that many regions share the same lesion-deficit association due to shared vasculature, and that damage to several areas, regardless of their causal relationship to hemiparesis, may be useful for predicting deficits. 
 
-Further investigation into the features that were most consistently selected can give insight into the performance of the model. Correlation-based feature selection is known to choose redundant features (Guyon). Indeed, damage to many selected regions is highly correlated, suggesting that information from these regions is somewhat redundant. Does this mean that our model is suboptimal, and that fewer features are actually necessary for good predictions? No; in the context of lesion-deficit modelling, damage to adjacent regions can be highly correlated because they are supplied by the same vascular territory, and a stroke in that artery will cause damage to both areas. One may therefore expect that many regions share the same lesion-deficit association due to shared vasculature, and that damage to several areas, regardless of their causal relationship to hemiparesis, may be useful for predicting deficits. That the feature selection identified such clusters of correlated damage is expected performance of the model based on the non-random distribution lesions and their relationship to deficits. Curiously, although damage to consistently-selected regions was positively correlated (or had minimal correlation), the weights assigned to those features were mixed. The left ventral motor cortex is consistently damaged with the area directly posterior to it (Supp fig). However, damage to left ventral motor cortex is negatively related to motor outcomes and damage to the region directly posterior has a positive association with motor outcomes. The sample size may be sufficiently large, with enough small lesions, that we can parse out differential lesion-deficit associations in areas that are highly correlated. Likely, the increased statistical power obtained by modelling structural disconnection and small parcel size in the shen268 atlas enabled this finer mapping. 
+That feature selection identified such clusters of correlated damage is expected performance of the model based on the non-random distribution lesions and their relationship to deficits. Curiously, many regions that are frequently damaged together (i.e. correlation across subjects $>$0.8) have opposite weights in the final regression model. Bona fide negative associations between damage and motor ability (or, identically, positive associations between damage and a deficit) are generally uncommon in lesion-deficit inference, though some cases of genuine facilitation have been documented (\cite{Kapur1996-xq, Sperber2020-kp}). These so-called paradoxical associations may arise when two regions are systematically not damaged together; if, for instance, individuals with posterior cerebral artery (PCA) stroke rarely have motor deficits, then damage to regions supplied by the PCA may be positively associated with motor deficits (\cite{Sperber2020-kp}). We may therefore ask, in this study, why two regions that \textit{are} systematically damaged together have opposite relationships to motor deficits? Likely, the large sample size and increased statistical power obtained by modelling structural disconnections instead of voxelwise damage enabled the model to identify differential lesion-deficit associations in areas that are frequently damaged together. That is, if region A and B are generally systematically damaged together but only A is related to hemiparesis, then without counter examples where only A or only B is damaged, it is impossible for the model to differentiate the two in terms of their association with a deficit. However, in a large sample, there may be enough counter-examples where only B is damaged and a subject does not have a deficit, or when only A is damaged and a subject does have a deficit, that the model assigns opposite weights to these areas. 
 
+Perhaps the most surprising result of this paper is the poor performance of sLNM models relative to ChaCo models. One of the main  differences between the features represented by the two models relates to when lesion-induced white matter damage is calculated. In both models, features reflecting lesion-induced damage are selected via optimization procedures on the basis of those features contributing to the prediction of motor deficits in a held-out sample; i.e., the features are selected in a data-driven way. However, in sLNM models, those features are voxels, and in ChaCo models, those features are regional ChaCo scores. Although sLNM identifies the white matter tracts that pass through voxels important for predictions and uses damage to those tracts as input to predictive models, the data on which feature selection takes place are voxels. False negatives may result from this type of modelling when partial damage of larger neural correlates produces a deficit (\cite{Sperber2022-oj}) because there are simply fewer instances in which damage to that area produces a deficit. When voxelwise lesion data is instead transformed into regional ChaCo scores, and feature selection takes place on those measurements, statistical power is increased: damage to cortical and subcortical grey matter as well as associated projection fibers is collapsed into change in connectivity scores of a subset of regions. 
 
-On the other hand, the 86-region FreeSurfer parcellation may have been too coarse, and relevant signal may have been diluted across large gray matter regions, or more components were needed to adequately model the relationship between lesion damage and deficits. Fisgure 2 maps are not hemiparesis maps per se. Indeed, if the goal of an analysis is to merely to optimize predictive accuracy in unseen subjects using lesion data, it is less relevant that features are causally related to motor function at all (\cite{Price2017-co, Sperber2020-kp}). An open question remains to what extent non-causally associated features are robust to distribution shifts.
+Inclusion of the acute data improved predictions. Although in this paper we did not attempt to disentangle the effect of greater training size from relevance of the signal in the acute data, we can say that the acute data was, at the very least, not harmful for predictions of chronic motor scores. In particular, feature selection seemed to only improve performance when acute data was included in the training set. I There is some helpful signal in this population, if the statistical relationships between lesion and deficits changed over the course of the stroke then this information may not be useful. Likely, unmeasured factors like therapy, comorbidities, and lifestyle weaken the underlying relationship between lesion location and motor deficit as time between the stroke and the assessment increases. We may also conclude that because of this shared variance and decreased signal-to-noise ratio in the chronic subjects, predictive performance in acute subjects may be thought of as an upper limit of performance achieveable on chronic data.
 
-Perhaps the most surprising result of this paper is the poor performance of sLNM models relative to ChaCo models. The difference between the two models relates to when lesion-induced white matter damage is calculated. In both models, features reflecting lesion-induced damage are selected via optimization procedures on the basis of those features contributing to the prediction of motor deficits in a held-out sample; i.e., the features are selected in a data-driven way. However, in sLNM models, those features are voxels, and in ChaCo models, those features are regional ChaCo scores. Although sLNM identifies the white matter tracts that pass through voxels important for predictions and uses damage to those tracts as input to predictive models, the variables on which feature selection takes place are voxels. False negatives may result from this type of modelling when partial damage of larger neural correlates produces a deficit (Sperber et al., 2022) because there are simply fewer instances in which damage to that area produces a deficit. When voxelwise lesion data is first transformed into regional ChaCo scores, statistical power is increased: damage to cortical and subcortical grey matter as well as associated projection fibers is collapsed into change in connectivity scores of a subset of regions. 
+Finally, we saw that averaging predictions from multiple models improves performance above either model alone. This suggests that the information within each is not redundant, and that using multiple different lesion metrics may compensate for weaknesses of different feature representations. In this study, SMATT-LL models have the ability to distinguish between damage to several adjacent descending corticospinal tracts, but are unable to measure lesion-deficit associations outside this area, or in the gray matter. On the other hand, ChaCo models can detect associations across the entire brain and in the gray matter but may not have sufficient resolution between different branches of the corticospinal tract to capture relevant variance there. Beyond predictions of chronic motor scores, prediction models may be improved by testing and possibly combining various feature representations to obtain and optimal model (\cite{Kasties2021-rm}).
 
-Inclusion of the acute data improved predictions. Although in this paper we did not attempt to disentangle the effect of greater training size from relevance of the signal in the acute data, we can say that the acute data was at least not harmful. In particular, feature selection seemed to only improve performance when acute data was included in the training set. If the statistical relationships between lesion and deficits changed over the course of the stroke then this information may not be useful. Therefore, there is some helpful signal in this population. Likely, unmeasured factors like therapy, comorbidities, and lifestyle weaken the underlying relationship between lesion location and motor deficit as time between the stroke and the assessment increases. We may also conclude that because of this shared variance, predictive performance in acute subjects can be thought of as an upper limit of performance achieveable on chronic data.
-
-Ensemble results: averaging predictions from multiple models improves performance above either model alone. This suggests that the information within each is not redundant, and that using multiple different lesion metrics may compensate for weaknesses of different feature representations. 
-
-Limitations:
-- no initial motor scores; there is likely overlap between the variance in chronic outcomes explained by baseline impairment and the variance in chronic outcomes explained by lesion measures. Since this information would likely be accessible for future clinical trials or prediction use cases, it remains to be seen to what degree lesion information provides variance above baseline lesion measures. There is reason to believe that this is true, with proportional recovery rule not holding in all cases and INSERT EXAMLPES OF BASELINE MOTOR IMPAIRMENT NOT BEING CORRELATED WITH CHRONIC IMPARIMENT).
-
-- Mix of different measures may be limited the SNR of the results, e.g. fugl meyer UE versus other measures of motor function that are more broad and measures of function in general. 
-
-- 
+There are several limitations of this study. Without baseline motor scores, we cannot evaluate the relative predictive power of lesion damage versus baseline behavioral information, which may share variance (\cite{Bowren2022-rs}). Since this information would likely be accessible for future clinical trials or prediction contexts, it is important to determine to what degree lesion information provides explanatory power above baseline motor scores. Second, the inclusion of metrics that are not specific to motor deficits (i.e. NIHSS) may have reduced 
 
 \clearpage
 
@@ -488,7 +482,7 @@ r053 & 2 & 0 & 0 & 2 & 0 \\
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1\linewidth]{figures/heatmap_shen268_correlation_negs.png}
+\includegraphics[width=1\linewidth]{figures/heatmap_shen268_correlation_neg.png}
 \caption{Hierarchically-clustered heatmap of the correlation matrix of the selected features (ChaCo scores) with negative weights chosen in at least 99 percent of outer folds by correlation-based feature selection in ridge regression using the shen 268-region atlas. Heatmap (top left) displays values corresponding to correlation between features across subjects. Regions are labeled in the following format: "Hemisphere, lobe: Yeo Network".}
 \label{heatmap_shen_negweights}
 \end{figure}
