@@ -202,23 +202,38 @@ Left and right hemisphere M1-CST segmentations in MNI space were obtained from t
 Linear regression was used to model the relationship between ipsilesional M1-CST-LL and chronic motor scores. The weights from best-performing model in the inner loop were used to predict motor scores for new subjects in the test folds. 
 
 \subsubsection*{Sensorimotor tract lesion load (SMATT-LL) models}
-Sensorimotor tract segmentations were obtained from the sensorimotor area tract template (SMATT) (\cite{Archer2018-ti}), which contains 12 tracts derived from probabilistic tractography seeded in the left and right primary motor cortex (M1), dorsal and ventral premotor cortex (PMd and PMv, respectively), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), and primary somatosensory cortex (S1) performed in healthy controls (Figure \ref{smatt_and_chaco}A). Lesion load was calculated as above for all 12 bilateral tracts (L/R SMATT-LL) and for 6 ipsilesional tracts (Ipsilesional SMATT-LL). L/R SMATT-LL was calculated in order to assess whether preserving hemispheric information improved predictions. For subjects with brainstem, cerebellar, and/or bilateral cerebral strokes (N=30 chronic, N=43 acute), ipsilesional lesion load was calculated as the average lesion load of the left and right hemisphere tracts. Lesion loads also had a heavy-tailed distribution (Supplementary Figure \ref{lesion_load_dist}B,C). 
+Sensorimotor tract segmentations were obtained from the sensorimotor area tract template (SMATT) (\cite{Archer2018-ti}), which contains 12 tracts derived from probabilistic tractography seeded in the left and right primary motor cortex (M1), dorsal and ventral premotor cortex (PMd and PMv, respectively), supplementary motor area (SMA), pre-supplementary motor area (pre-SMA), and primary somatosensory cortex (S1) performed in healthy controls (Figure \ref{smatt}). Lesion load was calculated as above for all 12 bilateral tracts (L/R SMATT-LL) and for 6 ipsilesional tracts (Ipsilesional SMATT-LL). L/R SMATT-LL was calculated in order to assess whether preserving hemispheric information improved predictions. For subjects with brainstem, cerebellar, and/or bilateral cerebral strokes (N=30 chronic, N=43 acute), ipsilesional lesion load was calculated as the average lesion load of the left and right hemisphere tracts. Lesion loads also had a heavy-tailed distribution (Supplementary Figure \ref{lesion_load_dist}B,C). 
 
-\begin{figure}
-\begin{subfigure}{1\textwidth}
-   \includegraphics[width=1\linewidth]{figures/all_SMATT2.png}
-    \caption{Sensorimotor tract template atlas (SMATT), displaying only right hemisphere tracts relative to an MNI template, including pre-supplementary motor area (pre-SMA), supplementary motor area (SMA), dorsal premotor cortex (PMd), ventral premotor cortex (PMv),  primary motor cortex (M1), and primary sensory cortex (S1). Pre-SMA is the most anterior tract, S1 is the most posterior tract.}
-    \label{smatt}
-  \label{fig:sfig1}
-\end{subfigure}
-\begin{subfigure}{1\textwidth}
-  \includegraphics[width=1\linewidth]{figures/Multi-panelML_white_regional.png}
-  \caption{Overview of the Network Modification (NeMo) tool. Binary lesion masks in MNI space representing the presence of a stroke lesion (turquoise) in a given voxel are provided by the user. Each lesion mask is embedded into 420 unrelated healthy structural connectomes (separately for each healthy subject) and the regional and pairwise change in connectivity (ChaCo) scores are calculated and averaged across healthy subjects (parcellation shown here is the Shen 268-region atlas). }
-  \label{fig:sfig2}
-\end{subfigure}
-\caption{Overview of SMATT tracts and procedure for generating regional Change in Connectivity (ChaCo) scores using the Network Modification tool}
-\label{smatt_and_chaco}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=1\linewidth]{figures/M1.png}
+\caption{M1 displaying only right hemisphere tracts relative to an MNI template, including  primary motor cortex (M1)}
+\label{M1}
 \end{figure}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=1\linewidth]{figures/all_SMATT2.png}
+\caption{Sensorimotor tract template atlas (SMATT), displaying only right hemisphere tracts relative to an MNI template, including pre-supplementary motor area (pre-SMA), supplementary motor area (SMA), dorsal premotor cortex (PMd), ventral premotor cortex (PMv),  primary motor cortex (M1), and primary sensory cortex (S1). Pre-SMA is the most anterior tract, S1 is the most posterior tract.}
+\label{smatt}
+\end{figure}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=1\linewidth]{all_sLNM_copy.png}
+\caption{M1 displaying only right hemisphere tracts relative to an MNI template, including  primary motor cortex (M1)}
+\label{M1}
+\end{figure}
+\begin{figure}[htp]
+\centering
+\includegraphics[width=1\linewidth]{figures/Multi-panelML_white_regional.png}
+\caption{Overview of the Network Modification (NeMo) tool. Binary lesion masks in MNI space representing the presence of a stroke lesion (turquoise) in a given voxel are provided by the user. Each lesion mask is embedded into 420 unrelated healthy structural connectomes (separately for each healthy subject) and the regional and pairwise change in connectivity (ChaCo) scores are calculated and averaged across healthy subjects (parcellation shown here is the Shen 268-region atlas). }
+\label{chaco}
+\end{figure}
+
+
+
 
 Ridge regression models were used to predict chronic motor deficits from ipsilesional SMATT-LL (6 features) and from L/R-SMATT-LL (12 features). Ridge regression was used to account for multicollinearity of lesion load values between tracts (Supplementary Figure \ref{smatt_pairwise_correlations}, \ref{smatt_pairwise_correlations_bi}). Lesion load values were normalized (after train/test split) by subtracting the mean across subjects and dividing by the l2-norm prior to model fitting. In the inner loop, the degree of model regularization  ($\lambda$) was determined via grid-search over 30 values ranging from $10^{-2}$ to $10^2$. The training data was fit with the selected $\lambda$ and this model was used to predict motor scores for hold-out subjects in the test folds.
 
