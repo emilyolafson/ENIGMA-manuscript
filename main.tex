@@ -174,16 +174,22 @@ r052 & 32 (12/20) & 63.0 (13.5) & 0.41 (0.09) & 39.1 (42.2) & 6.98 (51.55) \\
 
 \subsection{General overview}
 
-We built several models to predict chronic motor scores from imaging data and minimal clinical information. Each model uses lesion-derived information as input to predict normalized motor scores in chronic stroke subjects. We compared several different features that reflect different aspects of lesion damage. These features include:
+We built several models to predict chronic motor scores from imaging data and minimal clinical information. Each model uses lesion-derived information as input to predict normalized motor scores in chronic stroke subjects. We compared several different biomarkers that reflect different aspects of lesion damage. These biomarkers include:
 
+
+\textbf{Theory-based biomarkers:}
 \begin{itemize}
 \item Lesion load of ipsilesional M1 (1 feature)
 \item Lesion load of higher order motor tracts (6 features for ipsilesional tracts, 12 features for bilateral tracts)
-\item Structural connectivity of lesion-behaviour mapping components (5 features based on \cite{Bowren2022-rs})
+\end{itemize}
+
+\textbf{Data-driven biomarkers:}
+\begin{itemize}
+\item Lesion-behaviour maps (1 feature)
 \item ChaCo scores (2 atlases assessed with 86 or 268 features, or fewer when using feature selection)
 \end{itemize}
 
-We assessed whether data-driven feature selection improved performance for ChaCo score models. Nested cross-validation was performed during model training and performance was assessed on unseen test data.  Additionally, we evaluated whether including acute subjects in the training set (but not in the test set) improved prediction of chronic deficits, with the idea that the larger variance in motor scores in the acute data would be useful in predicting motor deficits in the chronic phase. We also evaluated whether adding basic clinical information (age, sex, time since stroke) via ensemble models improved performance. Finally, we assessed whether using ensemble models to combine predictions from multiple different lesion damage metrics improved performance.
+We assessed whether feature selection improved performance for ChaCo score models. Nested cross-validation was performed during model training and performance was assessed on unseen test data.  Additionally, we evaluated whether including acute subjects in the training set (but not in the test set) improved prediction of chronic deficits, with the idea that the larger variance in motor scores in the acute data would be useful in predicting motor deficits in the chronic phase. We also evaluated whether adding basic clinical information (age, sex, time since stroke) via ensemble models improved performance. Finally, we assessed whether using ensemble models to combine predictions from multiple different lesion damage metrics improved performance.
 
 \subsubsection*{Machine learning framework}
 Regression models were trained and evaluated using repeated 5-fold nested cross-validation. Models differed for each lesion biomarker based on the dimensionality of the data; see below for implementation details for each biomarker (3.3 Description of models and their inputs). In the outer loop, the data was split into 5 training and test partitions. Using only chronic data to train the models, there were approximately 370 subjects in the training set and 92 subjects in the test set. If acute data was used in training, it was added to the training partition, such that there were 696 subjects in the training set and 92 subjects in the test set. Training data was further split into training and validation sets in the inner loop, and if hyperparameters were specified in the model, they were optimized in the inner loop. Out-of-sample performance was calculated as the average performance across 5 outer test folds. We obtained a distribution of out-of-sample performance by splitting the data into 5 train/test folds 100 times, shuffling the indices of the splits each time. 
@@ -207,22 +213,22 @@ Sensorimotor tract segmentations were obtained from the sensorimotor area tract 
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=1\linewidth]{figures/M1.png}
-\caption{M1 displaying only right hemisphere tracts relative to an MNI template, including  primary motor cortex (M1)}
+\includegraphics[width=1\linewidth]{figures/theory_driven_rois.png}
+\caption{Theory-driven biomarkers. \textbf{A.} M1 displaying only right hemisphere tracts relative to an MNI template, including  primary motor cortex (M1). \textbf{B} Sensorimotor tract template atlas (SMATT), displaying only right hemisphere tracts relative to an MNI template, including pre-supplementary motor area (pre-SMA), supplementary motor area (SMA), dorsal premotor cortex (PMd), ventral premotor cortex (PMv),  primary motor cortex (M1), and primary sensory cortex (S1). Pre-SMA is the most anterior tract, S1 is the most posterior tract. }
 \label{M1}
 \end{figure}
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=1\linewidth]{figures/all_SMATT2.png}
-\caption{Sensorimotor tract template atlas (SMATT), displaying only right hemisphere tracts relative to an MNI template, including pre-supplementary motor area (pre-SMA), supplementary motor area (SMA), dorsal premotor cortex (PMd), ventral premotor cortex (PMv),  primary motor cortex (M1), and primary sensory cortex (S1). Pre-SMA is the most anterior tract, S1 is the most posterior tract.}
+\caption{}
 \label{smatt}
 \end{figure}
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=1\linewidth]{all_sLNM_copy.png}
-\caption{M1 displaying only right hemisphere tracts relative to an MNI template, including  primary motor cortex (M1)}
+\caption{Structural lesion-network map principal components, split into separate positive and negative voxels relative to an MNI template.}
 \label{M1}
 \end{figure}
 \begin{figure}[htp]
@@ -237,8 +243,8 @@ Sensorimotor tract segmentations were obtained from the sensorimotor area tract 
 
 Ridge regression models were used to predict chronic motor deficits from ipsilesional SMATT-LL (6 features) and from L/R-SMATT-LL (12 features). Ridge regression was used to account for multicollinearity of lesion load values between tracts (Supplementary Figure \ref{smatt_pairwise_correlations}, \ref{smatt_pairwise_correlations_bi}). Lesion load values were normalized (after train/test split) by subtracting the mean across subjects and dividing by the l2-norm prior to model fitting. In the inner loop, the degree of model regularization  ($\lambda$) was determined via grid-search over 30 values ranging from $10^{-2}$ to $10^2$. The training data was fit with the selected $\lambda$ and this model was used to predict motor scores for hold-out subjects in the test folds.
 
-\subsubsection*{Structural lesion-network mapping (sLNM) models}
-Structural lesion network maps were obtained from \cite{Bowren2022-rs}. Specifically, \cite{Bowren2022-rs} used sparse canonical correlation analysis to produce maps of white matter (WM) voxels in which damage was associated with Fugl-Meyer scores (\cite{Pustina2018-xv}). Then, tractography was seeded from these peak WM voxels to identify associated structural networks, called structural lesion network maps (sLNMs). Principal components analysis of sLNMs was performed, which produced 3 principal components that correspond to 5 sLNM maps (PC1, and positive/negative weights of PC2 and PC3). Lesion load on each sLNM map was calculated for each subject as the sum of the voxel intensities from the principal component map that intersected the lesion mask (Supplementary Figure \ref{slnm_distribution}). Ridge regression models were used to predict chronic motor deficits from sLNM lesion loads (5 features). As above, lesion load values were normalized (after train/test split) by subtracting the mean across subjects and dividing by the l2-norm prior to model fitting. Hyperparameter optimization was performance as described above for SMATT models.
+\subsubsection*{Lesion-behavior map models}
+Lesion behavior maps were obtained from \cite{Bowren2022-rs}. Specifically, \cite{Bowren2022-rs} used sparse canonical correlation analysis to produce maps of white matter (WM) voxels in which damage was associated with Fugl-Meyer scores (\cite{Pustina2018-xv}). Standard linear regression models were used to predict chronic motor deficits from LBM lesion load. 
 
 \subsubsection*{Regional change in connectivity (ChaCo) models}
 Lesion masks in $1mm^3$ MNI v6 space were processed with the Network Modification Tool (NeMo Tool) v2 pipeline (\cite{Kuceyeski2013-nk}), available at https://kuceyeski-wcm-web.s3.us-east-1.amazonaws.com/upload.html; see https://github.com/kjamison/nemo for documentation. Given a lesion mask, the NeMo tool produces outputs that reflect the impact of the lesion on white matter tracts using healthy structural connectomes as a reference. The NeMo tool embeds a lesion mask into healthy structural connectomes, identifies all white matter streamlines that intersect with the lesion, and determines the brain regions at the endpoints of those streamlines (Figure \ref{smatt_and_chaco}B). Regional change in connectivity (ChaCo) scores, or the ratio of the number of disrupted streamlines divided by the total number of streamlines terminating in each region, were calculated for all gray matter regions (see Supplementary Figure \ref{mean_std_chaco}A,B for distribution of mean and standard deviation of ChaCo scores). The NeMo tool uses structural connectivity from 420 unrelated subjects from the Human Connectome Project Young Adult database. For each stroke lesion, the NeMo tool calculates regional ChaCo scores for all HCP subjects separately and then produces final regional ChaCo scores by taking the mean across HCP subjects. Regional ChaCo scores from two different altases were compared: the 86-region Desikan-Killiany Atlas (68 cortical regions $\Plus$ 18 subcortical regions, excluding brainstem) from FreeSurfer ("fs86" for short), which contains coarse anatomically parcellated regions (\cite{Desikan2006-vf,Fischl2002-lb}), and the 268-region Shen atlas ("shen268" for short), which contains more fine-grained functionally parcellated cortical and subcortical regions (\cite{Shen2013-zn}).
@@ -271,9 +277,7 @@ The scikit-learn package was used to implement machine learning models (http://s
 \label{analysis1}
 \end{figure}
 
-The out-of-sample performances of the models can be found in Figure \ref{analysis1}A,B. 
-
-M1-CST-LL models performed worse than ipsilesional SMATT-LL models (difference in correlation = -0.035, $p < 2^{-16}, 95\%$ CI $[-0.037, -0.033]$) and worse than left/right SMATT-LL models (difference in correlation = -0.051, $p < 2^{-16}, 95\%$ CI $[-0.052, -0.049]$). 
+The out-of-sample performances of the models can be found in Figure \ref{analysis1}A,B. All results reported are for models using acute data in training. M1-CST-LL models performed worse than ipsilesional SMATT-LL models (difference in correlation = -0.035, $p < 2^{-16}, 95\%$ CI $[-0.037, -0.033]$) and worse than left/right SMATT-LL models (difference in correlation = -0.051, $p < 2^{-16}, 95\%$ CI $[-0.052, -0.049]$). 
 
 
 
