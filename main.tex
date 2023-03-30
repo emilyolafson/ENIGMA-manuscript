@@ -231,7 +231,7 @@ Sensorimotor tract segmentations were obtained from the sensorimotor area tract 
 
 Ridge regression models were used to predict chronic motor deficits from ipsilesional SMATT-LL (6 features) and from L/R-SMATT-LL (12 features). Ridge regression was used to account for multicollinearity of lesion load values between tracts (Supplementary Figure \ref{smatt_pairwise_correlations}, \ref{smatt_pairwise_correlations_bi}). Lesion load values were normalized (after train/test split) by subtracting the mean across subjects and dividing by the l2-norm prior to model fitting. In the inner loop, the degree of model regularization  ($\lambda$) was determined via grid-search over 30 values ranging from $10^{-2}$ to $10^2$. The training data was fit with the selected $\lambda$ and this model was used to predict motor scores for hold-out subjects in the test folds.
 
-\subsubsection*{Lesion-behavior map models}
+\subsubsection*{Lesion-behavior map (LBM) models}
 Lesion behavior maps were obtained from \cite{Bowren2022-rs}. Specifically, \cite{Bowren2022-rs} used sparse canonical correlation analysis to produce maps of white matter (WM) voxels in which damage was associated with Fugl-Meyer scores (\cite{Pustina2018-xv}). Standard linear regression models were used to predict chronic motor deficits from LBM lesion load. 
 
 \subsubsection*{Regional change in connectivity (ChaCo) models}
@@ -269,7 +269,7 @@ The out-of-sample performances of the models can be found in Figure \ref{analysi
 
 
 
-In general, M1 CST-LL, SMATT-LL, and sLNM-LL performed worse on average than ChaCo models, with Left/Right SMATT-LL models performing the best among them (correlation = 0.446, $R^2$ = 0.188) and M1 CST-LL models performing the worst (correlation = 0.395, $R^2$ = 0.133, n.s. between chronic and mixed training data). 
+In general, M1 CST-LL, SMATT-LL, and LBM-LL performed worse on average than ChaCo models, with LBM-LL models performing the best among them (correlation = 0.446, $R^2$ = 0.188) and M1 CST-LL models performing the worst (correlation = 0.395, $R^2$ = 0.133, n.s. between chronic and mixed training data). 
 
 
 Regional ChaCo scores from the 268-region Shen atlas best predicted chronic motor scores in unseen subjects. In particular, the best performance with this model was obtained using acute and chronic data for training plus feature selection (correlation = 0.467, $R^2$ = 0.210). $\beta$ coefficients for selected features were consistent in direction and magnitude across permutations (Supplementary Figure \ref{shen_beta_coeffs})). The performance of this model was on par with a model using regional ChaCo scores from the 86-region FreeSurfer atlas, that also used acute and chronic data for training and no feature selection (correlation = 0.458, $R^2$ = 0.204, n.s. between models). $\beta$ coefficients for all regions were consistent in direction and magnitude across permutations (Supplementary Figure  \ref{shen_beta_coeffs})).  Thus, the effect of feature selection in ChaCo models depended on the atlas: for the lower-dimension 86-region FreeSurfer atlas, feature selection reduced model performance, whereas for the higher dimension 268-region Shen atlas, feature selection improved it. 
