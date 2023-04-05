@@ -267,7 +267,9 @@ The scikit-learn package was used to implement machine learning models (http://s
 \label{analysis1}
 \end{figure}
 
-The out-of-sample performances of the models can be found in Figure \ref{analysis1}A,B. All results reported are for models using acute data in training. M1-CST-LL models performed worse than ipsilesional SMATT-LL models (difference in correlation = -0.035, $p < 2^{-16}, 95\%$ CI $[-0.037, -0.033]$) and worse than left/right SMATT-LL models (difference in correlation = -0.051, $p < 2^{-16}, 95\%$ CI $[-0.052, -0.049]$). 
+The out-of-sample performances of the models can be found in Figure \ref{analysis1}A,B. Using mixed training data (i.e., acute and chronic subjects) improved predictions for higher-dimensional ChaCo models
+
+M1-CST-LL models performed worse than ipsilesional SMATT-LL models (difference in correlation = -0.035, $p < 2^{-16}, 95\%$ CI $[-0.037, -0.033]$) and worse than left/right SMATT-LL models (difference in correlation = -0.051, $p < 2^{-16}, 95\%$ CI $[-0.052, -0.049]$). 
 
 
 
@@ -293,38 +295,39 @@ Including additional acute subjects in the training data improved model performa
 
 Generally, ensemble models performed marginally better than individual models (Figure \ref{analysis2_boxplots} and Table \ref{results_table_acutechronic}). In particular, including demographic information increased or did not change prediction accuracy for all models tested, and combining ChaCo models with lesion load models improved performance.  The best performance was obtained by combining L/R SMATT lesion load with 268-region ChaCo models with feature selection (L/R SMATT-LL + ChaCo (shen268) w/ feat. select $R^2 = 0.233$, L/R SMATT-LL $R^2=0.188$, ChaCo (shen268) w/ feat. select, $R^2=0.210$).\\
 
+
+
 \begin{table}[h]
 \centering
-\label{table:5}
 \begin{tabular}{lrrrr}
 \toprule
  &  & \multicolumn{2}{c}{Median performance} \\
 Ensemble type & Model name & Correlation & $R^2$  \\
-\midrule
-\multirow[t]{8}{*}{None} &  M1 CST-LL & \colorBlack{0.395} & \colorBlack{0.133} \\
- & Ipsi. SMATT-LL & \colorBlue{0.430} & \colorBlack{0.174} \\
- & L/R SMATT-LL & \colorBlue{0.446} & \colorBlack{0.188} \\
+\midrule\multirow[t]{9}{*}{None} & M1 CST-LL & \colorBlack{0.395} & \colorBlack{0.132} \\
+ & Ipsi. SMATT-LL & \colorBlue{0.441} & \colorBlack{0.175} \\
+ & L/R SMATT-LL & \colorBlue{0.445} & \colorBlack{0.180} \\
+ & LBM & \colorBlue{0.452} & \colorBlue{0.200} \\
  & sLNM-LL & \colorBlue{0.428} & \colorBlack{0.167} \\
  & ChaCo (fs86) & \colorBlue{0.458} & \colorBlue{0.204} \\
- & ChaCo (shen268) & \colorBlue{0.456} & \colorBlack{0.199} \\
- & ChaCo (fs86) (feat. select.) & \colorBlue{0.447} & \colorBlack{0.191} \\
- & ChaCo (shen268) (feat. select.) & \colorNavyBlue{0.468} & \colorBlue{0.210} \\
- \hline
-\multirow[t]{8}{*}{$\Plus$ Demographics} & M1 CST-LL + demog. & \colorBlue{0.424} & \colorBlack{0.173} \\
+ & ChaCo (shen268) & \colorBlue{0.458} & \colorBlue{0.200} \\
+ & ChaCo (fs86) (feat. select.) & \colorBlue{0.457} & \colorBlue{0.202} \\
+ & ChaCo (shen268) (feat. select.) & \colorNavyBlue{0.468} & \colorBlue{0.212} \\
+\multirow[t]{9}{*}{+ Demog.} & M1 CST-LL + demog. & \colorBlue{0.424} & \colorBlack{0.173} \\
  & Ipsi. SMATT-LL + demog. & \colorBlue{0.457} & \colorBlack{0.199} \\
  & L/R SMATT-LL + demog. & \colorNavyBlue{0.462} & \colorBlue{0.203} \\
+ & LBM + demog. & \colorNavyBlue{0.482} & \colorBlue{0.207} \\
  & sLNM-LL + demog. & \colorBlue{0.452} & \colorBlack{0.191} \\
  & ChaCo (fs86) + demog & \colorNavyBlue{0.471} & \colorBlue{0.203} \\
  & ChaCo (shen268) + demog & \colorNavyBlue{0.468} & \colorBlue{0.204} \\
- & ChaCo (fs86) (feat. select.) + demog & \colorNavyBlue{0.465} & \colorBlue{0.201} \\
+ & ChaCo (fs86) (feat. select.) + demog & \colorNavyBlue{0.471} & \colorBlue{0.205} \\
  & ChaCo (shen268) (feat. select.) + demog & \colorNavyBlue{0.481} & \colorBlue{0.215} \\
- \hline
-\multirow[t]{16}{*}{Lesion load $\Plus$} & M1 CST-LL + ChaCo (fs86subj) & \colorNavyBlue{0.461} & \colorBlue{0.210} \\
- ChaCo & M1 CST-LL + ChaCo (shen268) & \colorNavyBlue{0.463} & \colorBlue{0.211} \\
+\multirow[t]{20}{*}{ChaCo} & M1 CST-LL + ChaCo (fs86subj) & \colorNavyBlue{0.461} & \colorBlue{0.210} \\
  & Ipsi. SMATT-LL + ChaCo (fs86subj) & \colorNavyBlue{0.478} & \colorNavyBlue{0.226} \\
  & Ipsi. SMATT-LL + ChaCo (shen268) & \colorNavyBlue{0.481} & \colorNavyBlue{0.228} \\
  & L/R SMATT-LL + ChaCo (fs86subj) & \colorNavyBlue{0.481} & \colorNavyBlue{0.227} \\
  & L/R SMATT-LL + ChaCo (shen268) & \colorNavyBlue{0.481} & \colorNavyBlue{0.228} \\
+ & LBM + ChaCo (fs86subj) & \colorNavyBlue{0.487} & \colorProcessBlue{0.234} \\
+ & LBM + ChaCo (shen268) & \colorProcessBlue{0.491} & \colorProcessBlue{0.240} \\
  & sLNM-LL + ChaCo (fs86subj) & \colorNavyBlue{0.468} & \colorBlue{0.214} \\
  & sLNM-LL + ChaCo (shen268) & \colorNavyBlue{0.472} & \colorBlue{0.217} \\
  & M1 CST-LL + ChaCo (fs86subj) (feat. select.) & \colorBlue{0.458} & \colorBlue{0.206} \\
@@ -333,15 +336,18 @@ Ensemble type & Model name & Correlation & $R^2$  \\
  & Ipsi. SMATT-LL + ChaCo (shen268) (feat. select.) & \colorNavyBlue{0.485} & \colorProcessBlue{0.233} \\
  & L/R SMATT-LL + ChaCo (fs86subj) (feat. select.) & \colorNavyBlue{0.475} & \colorNavyBlue{0.222} \\
  & L/R SMATT-LL + ChaCo (shen268) (feat. select.) & \colorNavyBlue{0.486} & \colorProcessBlue{0.232} \\
+ & LBM + ChaCo (fs86subj) (feat. select.) & \colorNavyBlue{0.487} & \colorProcessBlue{0.235} \\
+ & LBM + ChaCo (shen268) (feat. select.) & \colorProcessBlue{0.495} & \colorProcessBlue{0.243} \\
  & sLNM-LL + ChaCo (fs86subj) (feat. select.) & \colorNavyBlue{0.462} & \colorBlue{0.208} \\
  & sLNM-LL + ChaCo (shen268) (feat. select.) & \colorNavyBlue{0.474} & \colorNavyBlue{0.222} \\
- \hline
-\multirow[t]{16}{*}{Lesion load $\Plus$} & M1 CST-LL + ChaCo (fs86subj) + demog. & \colorNavyBlue{0.476} & \colorBlue{0.214} \\
- ChaCo $\Plus$ & M1 CST-LL + ChaCo (shen268) + demog. & \colorNavyBlue{0.477} & \colorBlue{0.216} \\
- Demographics & Ipsi. SMATT-LL + ChaCo (fs86subj) + demog. & \colorProcessBlue{0.492} & \colorProcessBlue{0.230} \\
+\multirow[t]{20}{*}{ChaCo} & M1 CST-LL + ChaCo (fs86subj) + demog. & \colorNavyBlue{0.476} & \colorBlue{0.214} \\
++ Lesion load & M1 CST-LL + ChaCo (shen268) + demog. & \colorNavyBlue{0.477} & \colorBlue{0.216} \\
++ Demog. & Ipsi. SMATT-LL + ChaCo (fs86subj) + demog. & \colorProcessBlue{0.492} & \colorProcessBlue{0.230} \\
  & Ipsi. SMATT-LL + ChaCo (shen268) + demog. & \colorProcessBlue{0.495} & \colorProcessBlue{0.232} \\
  & L/R SMATT-LL + ChaCo (fs86subj) + demog. & \colorProcessBlue{0.494} & \colorProcessBlue{0.231} \\
  & L/R SMATT-LL + ChaCo (shen268) + demog. & \colorProcessBlue{0.494} & \colorProcessBlue{0.232} \\
+ & LBM + ChaCo (fs86subj) + demog. & \colorProcessBlue{0.506} & \colorProcessBlue{0.234} \\
+ & LBM + ChaCo (shen268) + demog. & \colorProcessBlue{0.509} & \colorProcessBlue{0.237} \\
  & sLNM-LL + ChaCo (fs86subj) + demog. & \colorNavyBlue{0.484} & \colorNavyBlue{0.222} \\
  & sLNM-LL + ChaCo (shen268) + demog. & \colorNavyBlue{0.487} & \colorNavyBlue{0.224} \\
  & M1 CST-LL + ChaCo (fs86subj) (feat. select.) + demog. & \colorNavyBlue{0.472} & \colorBlue{0.212} \\
@@ -350,8 +356,12 @@ Ensemble type & Model name & Correlation & $R^2$  \\
  & Ipsi. SMATT-LL + ChaCo (shen268) (feat. select.) + demog. & \colorProcessBlue{0.498} & \colorProcessBlue{0.237} \\
  & L/R SMATT-LL + ChaCo (fs86subj) (feat. select.) + demog. & \colorProcessBlue{0.490} & \colorNavyBlue{0.229} \\
  & L/R SMATT-LL + ChaCo (shen268) (feat. select.) + demog. & \colorProcessBlue{0.499} & \colorProcessBlue{0.237} \\
+ & LBM + ChaCo (fs86subj) (feat. select.) + demog. & \colorProcessBlue{0.505} & \colorProcessBlue{0.234} \\
+ & LBM + ChaCo (shen268) (feat. select.) + demog. & \colorProcessBlue{0.513} & \colorProcessBlue{0.241} \\
  & sLNM-LL + ChaCo (fs86subj) (feat. select.) + demog. & \colorNavyBlue{0.479} & \colorBlue{0.218} \\
  & sLNM-LL + ChaCo (shen268) (feat. select.) + demog. & \colorProcessBlue{0.492} & \colorProcessBlue{0.230} \\
+
+
 \bottomrule
 \end{tabular}
 \caption{Test performance of all models evaluated, displaying median $R^2$ and median correlation of average hold-out performances (i.e. average across 5 outer folds) across 100 permutations. Demog. = demographics, Ipsi. = Ipsilesional, SMATT LL = sensorimotor tract template lesion load, L/R SMATT LL = left and right sensorimotor tract template lesion load, M1 CST LL = M1 corticospinal tract lesion load, ChaCo = Change in Connectivity, fs86 = FreeSurfer 86-region atlas, feat. select. = feature selection}
@@ -379,7 +389,7 @@ Ensemble type & Model name & Correlation & $R^2$  \\
 In this study, we compared the performance of models predicting post-stroke motor ability built using several structural imaging biomarkers derived from a large, multi-site dataset. We found that modelling lesion damage using regional ChaCo scores, using correlation-based feature selection and data from both acute and chronic subjects resulted in a model that best predicted chronic motor scores. Models using features derived from multivariate voxelwise lesion-behaviour modelling performed worse than more basic models using lesion load on the descending corticospinal tract. Finally, we saw that combining several biomarkers and demographic information using ensemble modelling improved prediction of post-stroke motor ability.
 
 \subsubsection*{Data-driven biomarkers outperform theory-based biomarkers}
-We saw that simple linear regression models based on the extent of lesion damage to lesion-behavior maps outperformed all theory-based biomarkers representing damage to tracts in the sensorimotor system. The extent of 
+We saw that simple linear regression models based on the extent of lesion damage to lesion-behavior maps outperformed all theory-based biomarkers representing damage to tracts in the sensorimotor system. Many voxels, particularly in the right hemisphere, that lie outside of these sensorimotor tracts are present in the lesion-behavior map (Figure \ref{lbm_vs_smatt}). Shifts in lesion-behavior association maps towards vascular territories have been well-documented \cite{Mah2014-cb, Sperber2020-kp}) and have been considered artefactual displacements that emerge due to the non-uniform distribution of lesions. This study suggests that, regardless of whether these lesion-behavior maps reflect areas that are causally related to a deficit, the extent of lesion damage to these maps is a more useful biomarker for the prediction of chronic motor deficits than the extent of damage to elements of the motor system as we currently understand it. 
 
 \subsubsection*{Higher-order motor areas are relevant for motor outcome prediction}
 This study supports previous results showing that M1-CST-LL alone does not capture enough variance to accurately predict chronic post-stroke motor outcomes(\cite{Rondina2017-ij, Park2016-te, Ito2022-em}), although few studies have directly compared the out-of-sample performance of M1-CST-LL against more complex metrics like those assessed in this paper. Corticospinal projections consist of fibers originating not just from M1, but from higher order motor areas in the frontal and parietal lobes (\cite{Galea1994-yi}) that have been implicated in motor planning and execution (\cite{Ball1999-yo}). Damage to descending fibers from these areas has been associated with motor deficits after stroke (\cite{Ito2022-em, Riley2011-xo}) and may explain additional variance in chronic motor outcome that is not captured by damage to the M1 corticospinal tract alone. This study supports the notion that further development of non-M1-CST biomarkers is justified and that taking into account damage to non-primary motor regions is important for understanding variation in motor outcome.
@@ -600,8 +610,8 @@ r053 & 2 & 0 & 0 & 2 & 0 \\
 \begin{figure}[htp]
 \centering
 \includegraphics[width=1\linewidth]{figures/lbm_vs_smatt.png}
-\caption{Distribution of mean (average over 5 folds) beta coefficients for features that were selected in at least 475/500 outer folds for Shen268-ChaCo models. Regions are listed on the x-axis and beta values on the y-axis. Only features that were selected in 475/500 folds are listed on the x-axis.}
-\label{shen_beta_coeffs}
+\caption{Overlap between lesion-behavior map and SMATT tracts.}
+\label{lbm_vs_smatt}
 \end{figure}
 
 
