@@ -225,7 +225,7 @@
   keywords = "brain networks; diffusion MRI; functional MRI; functional
               connectivity; lesion; resting state; stroke; structural
               connectivity; structural disconnection; structure-function;Graph
-              matching;ENIGMA;Dissertation",
+              matching;ENIGMA;Dissertation;Defense presentation",
   language = "en"
 }
 
@@ -982,7 +982,8 @@
   number   =  5,
   pages    = "451--463",
   year     =  2013,
-  keywords = "Graph matching;WML;CIC lecture;ENIGMA;Dissertation",
+  keywords = "Graph matching;WML;CIC lecture;ENIGMA;Dissertation;Defense
+              presentation",
   language = "en"
 }
 
@@ -1050,7 +1051,8 @@
   month    =  mar,
   year     =  2022,
   keywords = "Fugl-Meyer; M1; corticospinal tract; motor; stroke; ventral
-              premotor cortex;ENIGMA;Motor predictions stroke;Dissertation",
+              premotor cortex;ENIGMA;Motor predictions
+              stroke;Dissertation;Defense presentation",
   language = "en"
 }
 
@@ -1156,7 +1158,7 @@
   year     =  2022,
   keywords = "brain networks; functional connectivity; lesion network mapping;
               lesion-behavior mapping; stroke;Cognitive predictions
-              stroke;ENIGMA;Dissertation",
+              stroke;ENIGMA;Dissertation;Defense presentation",
   language = "en"
 }
 
@@ -1521,6 +1523,45 @@
   language = "en"
 }
 
+@ARTICLE{Di_Pino2014-qa,
+  title    = "Modulation of brain plasticity in stroke: a novel model for
+              neurorehabilitation",
+  author   = "Di Pino, Giovanni and Pellegrino, Giovanni and Assenza, Giovanni
+              and Capone, Fioravante and Ferreri, Florinda and Formica,
+              Domenico and Ranieri, Federico and Tombini, Mario and Ziemann,
+              Ulf and Rothwell, John C and Di Lazzaro, Vincenzo",
+  abstract = "Noninvasive brain stimulation (NIBS) techniques can be used to
+              monitor and modulate the excitability of intracortical neuronal
+              circuits. Long periods of cortical stimulation can produce
+              lasting effects on brain function, paving the way for therapeutic
+              applications of NIBS in chronic neurological disease. The
+              potential of NIBS in stroke rehabilitation has been of particular
+              interest, because stroke is the main cause of permanent
+              disability in industrial nations, and treatment outcomes often
+              fail to meet the expectations of patients. Despite promising
+              reports from many clinical trials on NIBS for stroke recovery,
+              the number of studies reporting a null effect remains a concern.
+              One possible explanation is that the interhemispheric competition
+              model--which posits that suppressing the excitability of the
+              hemisphere not affected by stroke will enhance recovery by
+              reducing interhemispheric inhibition of the stroke hemisphere,
+              and forms the rationale for many studies--is oversimplified or
+              even incorrect. Here, we critically review the proposed
+              mechanisms of synaptic and functional reorganization after
+              stroke, and suggest a bimodal balance-recovery model that links
+              interhemispheric balancing and functional recovery to the
+              structural reserve spared by the lesion. The proposed model could
+              enable NIBS to be tailored to the needs of individual patients.",
+  journal  = "Nat. Rev. Neurol.",
+  volume   =  10,
+  number   =  10,
+  pages    = "597--608",
+  month    =  oct,
+  year     =  2014,
+  keywords = "ENIGMA",
+  language = "en"
+}
+
 @ARTICLE{Sperber2020-kp,
   title    = "Rethinking causality and data complexity in brain
               lesion-behaviour inference and its implications for
@@ -1846,7 +1887,7 @@
   year     =  2022,
   keywords = "Connectome; Diffusion tensor imaging; Inference; Lesion-symptom
               mapping; Statistics; White matter;Lesion-deficit
-              inference;ENIGMA;Dissertation",
+              inference;ENIGMA;Dissertation;Defense presentation",
   language = "en"
 }
 
@@ -2263,6 +2304,58 @@
   keywords = "VLSM; automatic; hierarchical; machine learning; random forests;
               subacute;ENIGMA;Dissertation",
   language = "en"
+}
+
+@UNPUBLISHED{Bourached2022-vz,
+  title    = "Scaling behaviors of deep learning and linear algorithms for the
+              prediction of stroke severity",
+  author   = "Bourached, Anthony and Bonkhoff, Anna K and Schirmer, Markus D
+              and Regenhardt, Robert W and Bretzner, Martin and Hong, Sungmin
+              and Dalca, Adrian V and Giese, Anne-Katrin and Winzeck, Stefan
+              and Jern, Christina and Lindgren, Arne G and Maguire, Jane and
+              Wu, Ona and Rhee, John and Kimchi, Eyal Y and Rost, Natalia S",
+  abstract = "Introduction Deep learning has allowed for remarkable progress in
+              many medical scenarios. Since deep learning prediction models
+              often require 105-107 examples, it is currently unknown whether
+              deep learning can also enhance predictions of symptoms
+              post-stroke in real-world samples of stroke patients that are
+              often several magnitudes smaller. Such stroke outcome predictions
+              however could be particularly instrumental in guiding acute
+              clinical and rehabilitation care decisions. We here compared the
+              capacities of classically used linear and novel deep learning
+              algorithms in their prediction of stroke severity. Methods Our
+              analyses relied on a total of 1,430 patients assembled from the
+              MRI-GENIE collaboration and a Massachusetts General
+              Hospital-based study. The outcome of interest was NIHSS-based
+              stroke severity in the acute phase after ischemic stroke onset,
+              which we predict by means of MRI-derived lesion location. We
+              automatically derived lesion segmentations from
+              diffusion-weighted clinical MRI scans, performed spatial
+              normalization and included a principal component analysis (PCA)
+              step, retaining 95\% of the variance of the original data. We
+              then repeatedly separated a train, validation, and test set to
+              investigate the effects of sample size, we subsampled the train
+              set to 100, 300, and 900 and trained the algorithms to predict
+              the NIHSS score for each sample size with regularized linear
+              regression and an 8-layered neural network. We selected
+              hyperparameters on the validation set. We evaluated model
+              performance based on the explained variance (R-squared) in the
+              test set. Results While linear regression performed significantly
+              better for a sample size of 100 patients, deep learning started
+              to significantly outperform linear regression when trained on 900
+              patients. Average prediction performance improved by ~20\% when
+              increasing the sample size 9x (maximum for 100 patients: 0.279
+              +/- 0.005 (R2, 95\% confidence interval), 900 patients: 0.337 +/-
+              0.006). Conclusions For sample sizes of 900 patients, deep
+              learning showed a higher prediction performance than typically
+              employed linear methods. These findings suggest the existence of
+              non-linear relationships between lesion location and stroke
+              severity that can be utilized for an improved prediction
+              performance for larger sample sizes.",
+  journal  = "bioRxiv",
+  month    =  dec,
+  year     =  2022,
+  keywords = "ENIGMA"
 }
 
 @ARTICLE{Fischl2002-lb,
